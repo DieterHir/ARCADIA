@@ -1,0 +1,15 @@
+$primary: #FFFFFF;
+$secondary: #FFC900;
+$dark: #000000;
+
+$bg-primary: #0D2C3B;
+$bg-secondary: #183833;
+$bg-tertiary: #0083A0;
+
+$h1-font: "Sedan SC";
+$h2-font: "Libre Baskerville";
+$text-font: "Montserrat", sans-serif !default;
+$button-font: "Open Sans", sans-serif;
+$navigation-font: "PoetsenOne";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
