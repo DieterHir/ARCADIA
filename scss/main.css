@@ -11965,4 +11965,75 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.navbar-toggler {
+  border: none;
+}
+
+.logo {
+  font-family: "Merienda", serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.secondary-toggler {
+  color: #FFC900;
+}
+
+.shadow-bot {
+  box-shadow: 0px 4px 6px 2px black;
+}
+
+.header {
+  background-color: #0D2C3B;
+  display: flex;
+  justify-content: space-between;
+}
+.header h1, .header .h1 {
+  color: #FFC900;
+}
+.header .nav-link {
+  color: #FFFFFF;
+}
+.header .nav-link:hover {
+  color: #FFC900;
+}
+
+#mentions {
+  background-color: #0D2C3B;
+  padding-bottom: 1px;
+  padding-top: 1px;
+}
+#mentions .nav-link {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+#mentions .nav-link:hover {
+  color: #FFC900;
+}
+#mentions p {
+  color: #FFC900;
+}
+
+#infos {
+  background-color: #183833;
+}
+#infos h2, #infos .h2 {
+  font-family: "PoetsenOne";
+  font-size: 16px;
+  text-shadow: 1px solid black;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.primary {
+  color: #FFFFFF;
+}
+
+.secondary {
+  color: #FFC900;
+}
+
+#liens a {
+  text-decoration: none;
 }/*# sourceMappingURL=main.css.map */
