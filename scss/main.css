@@ -12011,9 +12011,6 @@ textarea.form-control-lg {
 #mentions .nav-link:hover {
   color: #FFC900;
 }
-#mentions p {
-  color: #FFC900;
-}
 
 #infos {
   background-color: #183833;
@@ -12026,6 +12023,39 @@ textarea.form-control-lg {
   margin: 0;
 }
 
+#liens a {
+  text-decoration: none;
+}
+
+.bulle-reseau {
+  width: 30px;
+  height: 30px;
+  background-color: #FFC900;
+  border-radius: 50px;
+}
+
+.h1-font {
+  font-family: "Sedan SC";
+}
+
+.h2-font {
+  font-family: "Libre Baskerville";
+}
+
+.text-font {
+  font-family: "Montserrat", sans-serif;
+  font-weight: medium;
+  font-size: 14px;
+}
+
+.button-font {
+  font-family: "Open Sans", sans-serif;
+}
+
+.navigation-font {
+  font-family: "PoetsenOne";
+}
+
 .primary {
   color: #FFFFFF;
 }
@@ -12034,6 +12064,18 @@ textarea.form-control-lg {
   color: #FFC900;
 }
 
-#liens a {
-  text-decoration: none;
+.dark {
+  color: #000000;
+}
+
+.fond-primary {
+  background-color: #0D2C3B;
+}
+
+.fond-secondary {
+  background-color: #183833;
+}
+
+.fond-tertiary {
+  background-color: #0083A0;
 }/*# sourceMappingURL=main.css.map */

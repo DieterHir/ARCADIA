@@ -63,10 +63,6 @@ $navigation-font: "PoetsenOne";
             color: $secondary;
         }
     }
-
-    p {
-        color: $secondary;
-    }
 }
 
 #infos {
@@ -81,6 +77,45 @@ $navigation-font: "PoetsenOne";
     }
 }
 
+#liens {
+    a {
+        text-decoration: none;
+    }
+}
+
+.bulle-reseau {
+    width: 30px;
+    height: 30px;
+    background-color: $secondary;
+    border-radius: 50px;
+}
+
+//Classes de polices//
+
+.h1-font {
+    font-family: $h1-font;
+}
+
+.h2-font {
+    font-family: $h2-font;
+}
+
+.text-font {
+    font-family: $text-font;
+    font-weight: medium;
+    font-size: 14px;
+}
+
+.button-font {
+    font-family: $button-font;
+}
+
+.navigation-font {
+    font-family: $navigation-font;
+}
+
+//Classes de couleurs de texte//
+
 .primary {
     color: $primary;
 }
@@ -89,8 +124,20 @@ $navigation-font: "PoetsenOne";
     color: $secondary;
 }
 
-#liens {
-    a {
-        text-decoration: none;
-    }
+.dark {
+    color: $dark;
+}
+
+//Classes de couleurs de fond//
+
+.fond-primary {
+    background-color: $bg-primary;
+}
+
+.fond-secondary {
+    background-color: $bg-secondary;
+}
+
+.fond-tertiary {
+    background-color: $bg-tertiary;
 }
