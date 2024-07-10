@@ -88,6 +88,18 @@ $navigation-font: "PoetsenOne";
     height: 30px;
     background-color: $secondary;
     border-radius: 50px;
+    &:hover {
+        background-color: $dark;
+        i {
+            color: $secondary;
+        }
+    }
+}
+
+hr {
+    color: $primary;
+    width: 150px;
+    align-self: center;
 }
 
 //Classes de polices//

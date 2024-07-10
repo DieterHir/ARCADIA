@@ -12033,6 +12033,18 @@ textarea.form-control-lg {
   background-color: #FFC900;
   border-radius: 50px;
 }
+.bulle-reseau:hover {
+  background-color: #000000;
+}
+.bulle-reseau:hover i {
+  color: #FFC900;
+}
+
+hr {
+  color: #FFFFFF;
+  width: 150px;
+  align-self: center;
+}
 
 .h1-font {
   font-family: "Sedan SC";
