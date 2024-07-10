@@ -65,6 +65,12 @@ $navigation-font: "PoetsenOne";
     }
 }
 
+@include media-breakpoint-up(sm) {
+    hr {
+        display: none;
+    }
+}
+
 #infos {
     background-color: $bg-secondary;
 

@@ -12012,6 +12012,11 @@ textarea.form-control-lg {
   color: #FFC900;
 }
 
+@media (min-width: 576px) {
+  hr {
+    display: none;
+  }
+}
 #infos {
   background-color: #183833;
 }
