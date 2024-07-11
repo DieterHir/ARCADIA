@@ -65,9 +65,31 @@ $navigation-font: "PoetsenOne";
     }
 }
 
+#banniere {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
 @include media-breakpoint-up(sm) {
     hr {
         display: none;
+    }
+
+    #banniere {
+        height: 200px;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    #banniere {
+        height: 300px;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    #banniere {
+        height: 400px;
     }
 }
 

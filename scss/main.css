@@ -12012,9 +12012,29 @@ textarea.form-control-lg {
   color: #FFC900;
 }
 
+#banniere {
+  width: 100%;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media (min-width: 576px) {
   hr {
     display: none;
+  }
+  #banniere {
+    height: 200px;
+  }
+}
+@media (min-width: 992px) {
+  #banniere {
+    height: 300px;
+  }
+}
+@media (min-width: 1400px) {
+  #banniere {
+    height: 400px;
   }
 }
 #infos {
