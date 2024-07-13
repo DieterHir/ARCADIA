@@ -11980,10 +11980,6 @@ textarea.form-control-lg {
   color: #FFC900;
 }
 
-.shadow-bot {
-  box-shadow: 0px 4px 6px 2px black;
-}
-
 .header {
   background-color: #0D2C3B;
   display: flex;
@@ -12019,6 +12015,31 @@ textarea.form-control-lg {
      object-fit: cover;
 }
 
+.banner {
+  position: relative;
+}
+.banner img {
+  position: relative;
+}
+.banner div {
+  max-width: 100%;
+  position: absolute;
+  width: 100%;
+  top: 40%;
+  bottom: 40%;
+}
+.banner h1, .banner .h1 {
+  color: #FFC900;
+  font-size: 12px;
+  -webkit-text-stroke: 0.5px black;
+}
+.banner #left-banner-text {
+  text-align: start;
+}
+.banner #right-banner-text {
+  text-align: end;
+}
+
 @media (min-width: 576px) {
   hr {
     display: none;
@@ -12026,26 +12047,35 @@ textarea.form-control-lg {
   #banniere {
     height: 200px;
   }
+  .banner h1, .banner .h1 {
+    font-size: 20px;
+  }
 }
 @media (min-width: 992px) {
   #banniere {
     height: 300px;
+  }
+  .banner h1, .banner .h1 {
+    font-size: 28px;
   }
 }
 @media (min-width: 1400px) {
   #banniere {
     height: 400px;
   }
+  .banner h1, .banner .h1 {
+    font-size: 32px;
+  }
 }
 #infos {
   background-color: #183833;
+  margin: 0px;
 }
 #infos h2, #infos .h2 {
   font-family: "PoetsenOne";
   font-size: 16px;
   text-shadow: 1px solid black;
   color: #FFFFFF;
-  margin: 0;
 }
 
 #liens a {

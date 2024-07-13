@@ -28,9 +28,9 @@ $navigation-font: "PoetsenOne";
     color: $secondary;
 }
 
-.shadow-bot {
-    box-shadow: 0px 4px 6px 2px black;
-}
+// .inner-shadow {
+//     box-shadow: inset 0em 1em black;
+// }
 
 .header {
     background-color: $bg-primary;
@@ -71,6 +71,36 @@ $navigation-font: "PoetsenOne";
     object-fit: cover;
 }
 
+.banner {
+    position: relative;
+
+    img {
+        position: relative;
+    }
+
+    div {
+        max-width: 100%;
+        position: absolute;
+        width: 100%;
+        top: 40%;
+        bottom: 40%;
+    }
+
+    h1 {
+        color: $secondary;
+        font-size: 12px;
+        -webkit-text-stroke: 0.5px black;
+    }
+
+    #left-banner-text {
+        text-align: start;
+    }
+
+    #right-banner-text {
+        text-align: end;
+    }
+}
+
 @include media-breakpoint-up(sm) {
     hr {
         display: none;
@@ -79,11 +109,19 @@ $navigation-font: "PoetsenOne";
     #banniere {
         height: 200px;
     }
+
+    .banner h1 {
+        font-size: 20px;
+    }
 }
 
 @include media-breakpoint-up(lg) {
     #banniere {
         height: 300px;
+    }
+
+    .banner h1 {
+        font-size: 28px;
     }
 }
 
@@ -91,17 +129,21 @@ $navigation-font: "PoetsenOne";
     #banniere {
         height: 400px;
     }
+
+    .banner h1 {
+        font-size: 32px;
+    }
 }
 
 #infos {
     background-color: $bg-secondary;
+    margin: 0px;
 
     h2 {
         font-family: $navigation-font;
         font-size: 16px;
         text-shadow: 1px solid black;
         color: $primary;
-        margin: 0;
     }
 }
 
