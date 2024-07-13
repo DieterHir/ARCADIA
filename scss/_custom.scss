@@ -101,6 +101,31 @@ $navigation-font: "PoetsenOne";
     }
 }
 
+.presentation-card {
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+    
+    #more {
+        background-color: $secondary;
+        border-radius: 30%;
+        border: 1px black solid;
+    }
+}
+
+// #avis {
+//     height: 380px;
+//     position: relative;
+
+//     .fond-foret {
+//         max-height: 380px;
+//         max-width: 100%;
+//         object-fit: cover;
+//     }
+// }
+
 @include media-breakpoint-up(sm) {
     hr {
         display: none;
@@ -113,6 +138,13 @@ $navigation-font: "PoetsenOne";
     .banner h1 {
         font-size: 20px;
     }
+
+    .presentation-card {
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    }
 }
 
 @include media-breakpoint-up(lg) {
@@ -123,6 +155,13 @@ $navigation-font: "PoetsenOne";
     .banner h1 {
         font-size: 28px;
     }
+
+    .presentation-card {
+        img {
+            width: 250px;
+            height: 250px;
+        }
+    }
 }
 
 @include media-breakpoint-up(xxl) {
@@ -132,6 +171,13 @@ $navigation-font: "PoetsenOne";
 
     .banner h1 {
         font-size: 32px;
+    }
+
+    .presentation-card {
+        img {
+            width: 300px;
+            height: 300px;
+        }
     }
 }
 
