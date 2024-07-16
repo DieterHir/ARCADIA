@@ -12040,16 +12040,17 @@ textarea.form-control-lg {
   text-align: end;
 }
 
-.presentation-card img {
-  width: 150px;
-  height: 150px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
 .presentation-card #more {
   background-color: #FFC900;
   border-radius: 30%;
   border: 1px black solid;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 @media (min-width: 576px) {
@@ -12062,7 +12063,7 @@ textarea.form-control-lg {
   .banner h1, .banner .h1 {
     font-size: 20px;
   }
-  .presentation-card img {
+  img {
     width: 200px;
     height: 200px;
   }
@@ -12074,7 +12075,7 @@ textarea.form-control-lg {
   .banner h1, .banner .h1 {
     font-size: 28px;
   }
-  .presentation-card img {
+  img {
     width: 250px;
     height: 250px;
   }
@@ -12086,7 +12087,7 @@ textarea.form-control-lg {
   .banner h1, .banner .h1 {
     font-size: 32px;
   }
-  .presentation-card img {
+  img {
     width: 300px;
     height: 300px;
   }
