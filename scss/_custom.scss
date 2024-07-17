@@ -101,24 +101,25 @@ $navigation-font: "PoetsenOne";
     }
 }
 
-.presentation-card {
-    // img {
-    //     width: 150px;
-    //     height: 150px;
-    //     object-fit: cover;
-    // }
-
-    #more {
-        background-color: $secondary;
-        border-radius: 30%;
-        border: 1px black solid;
-    }
+.button {
+    background-color: $secondary;
+    border: 1px black solid;
+    border-radius: 10px;
+    font-family: $button-font;
+    font-weight: 600;
 }
 
 img {
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+//Reset du margin des paragraphes
+
+p {
+    margin: 0;
+    padding-bottom: 1rem;
 }
 
 // #avis {
@@ -131,6 +132,29 @@ img {
 //         object-fit: cover;
 //     }
 // }
+
+.fond-foret {
+    width: auto;
+    height: 550px;
+    background-image: url(../images/foret.jpg);
+    object-fit: cover;
+
+    .contact-form {
+        width: 90%;
+        margin: 5%;
+    }
+}
+
+.form-group {
+    label {
+        font-size: 14px;
+    }
+
+    input {
+        background-color: $bg-secondary;
+        border: none;
+    }
+}
 
 @include media-breakpoint-up(sm) {
     hr {
@@ -149,6 +173,14 @@ img {
         width: 200px;
         height: 200px;
     }
+
+    .fond-foret {
+        height: 500px;
+
+        .contact-form {
+            width: 70%;
+        }
+    }
 }
 
 @include media-breakpoint-up(lg) {
@@ -166,6 +198,13 @@ img {
         height: 250px;
     }
 
+    .fond-foret {
+        height: 600px;
+
+        .contact-form {
+            width: 60%;
+        }
+    }
 }
 
 @include media-breakpoint-up(xxl) {
@@ -183,6 +222,13 @@ img {
         height: 300px;
     }
 
+    .fond-foret {
+        height: 700px;
+
+        .contact-form {
+            width: 60%;
+        }
+    }
 }
 
 #infos {

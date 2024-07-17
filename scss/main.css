@@ -12040,10 +12040,12 @@ textarea.form-control-lg {
   text-align: end;
 }
 
-.presentation-card #more {
+.button {
   background-color: #FFC900;
-  border-radius: 30%;
   border: 1px black solid;
+  border-radius: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 img {
@@ -12051,6 +12053,31 @@ img {
   height: 150px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+p {
+  margin: 0;
+  padding-bottom: 1rem;
+}
+
+.fond-foret {
+  width: auto;
+  height: 550px;
+  background-image: url(../images/foret.jpg);
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.fond-foret .contact-form {
+  width: 90%;
+  margin: 5%;
+}
+
+.form-group label {
+  font-size: 14px;
+}
+.form-group input {
+  background-color: #183833;
+  border: none;
 }
 
 @media (min-width: 576px) {
@@ -12067,6 +12094,12 @@ img {
     width: 200px;
     height: 200px;
   }
+  .fond-foret {
+    height: 500px;
+  }
+  .fond-foret .contact-form {
+    width: 70%;
+  }
 }
 @media (min-width: 992px) {
   #banniere {
@@ -12079,6 +12112,12 @@ img {
     width: 250px;
     height: 250px;
   }
+  .fond-foret {
+    height: 600px;
+  }
+  .fond-foret .contact-form {
+    width: 60%;
+  }
 }
 @media (min-width: 1400px) {
   #banniere {
@@ -12090,6 +12129,12 @@ img {
   img {
     width: 300px;
     height: 300px;
+  }
+  .fond-foret {
+    height: 700px;
+  }
+  .fond-foret .contact-form {
+    width: 60%;
   }
 }
 #infos {
