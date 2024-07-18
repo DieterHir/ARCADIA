@@ -11985,9 +11985,6 @@ textarea.form-control-lg {
   display: flex;
   justify-content: space-between;
 }
-.header h1, .header .h1 {
-  color: #FFC900;
-}
 .header .nav-link {
   color: #FFFFFF;
 }
@@ -12069,7 +12066,13 @@ p {
 }
 .fond-foret .contact-form {
   width: 90%;
+  height: auto;
   margin: 5%;
+}
+
+.login-form {
+  width: 80%;
+  height: auto;
 }
 
 .form-group label {
@@ -12173,24 +12176,28 @@ hr {
 
 .h1-font {
   font-family: "Sedan SC";
+  font-size: 30px;
 }
 
 .h2-font {
   font-family: "Libre Baskerville";
+  font-size: 20px;
 }
 
 .text-font {
   font-family: "Montserrat", sans-serif;
   font-weight: medium;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .button-font {
   font-family: "Open Sans", sans-serif;
+  font-size: 16px;
 }
 
 .navigation-font {
   font-family: "PoetsenOne";
+  font-size: 16px;
 }
 
 .primary {

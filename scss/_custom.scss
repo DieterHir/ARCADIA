@@ -37,10 +37,6 @@ $navigation-font: "PoetsenOne";
     display: flex;
     justify-content: space-between;
 
-    h1 {
-        color: $secondary;
-    }
-
     .nav-link {
         color: $primary;
 
@@ -141,8 +137,14 @@ p {
 
     .contact-form {
         width: 90%;
+        height: auto;
         margin: 5%;
     }
+}
+
+.login-form {
+    width: 80%;
+    height: auto;
 }
 
 .form-group {
@@ -274,24 +276,28 @@ hr {
 
 .h1-font {
     font-family: $h1-font;
+    font-size: 30px;
 }
 
 .h2-font {
     font-family: $h2-font;
+    font-size: 20px;
 }
 
 .text-font {
     font-family: $text-font;
     font-weight: medium;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .button-font {
     font-family: $button-font;
+    font-size: 16px;
 }
 
 .navigation-font {
     font-family: $navigation-font;
+    font-size: 16px;
 }
 
 //Classes de couleurs de texte//
