@@ -25,10 +25,10 @@ const LoadContentPage = async() => {
     const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 
-    if (actualRoute.pathJS != "") {
+    if (actualRoute.pathJs != "") {
         let scriptTag = document.createElement("script");
         scriptTag.setAttribute("type", "text/javascript");
-        scriptTag.setAttribute("src", actualRoute.pathJS);
+        scriptTag.setAttribute("src", actualRoute.pathJs);
 
         document.querySelector("body").appendChild(scriptTag);
 
