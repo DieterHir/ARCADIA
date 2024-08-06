@@ -4,12 +4,12 @@ let btn_login = document.getElementById("btn_login");
 let email = document.getElementById("login");
 let password = document.getElementById("password");
 
-btn_login.addEventListener("click", login());
+btn_login.addEventListener('click', login());
 
 function login() {
 
     let myHeaders = new Headers();
-    myHeaders.appendChild("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
         "email" : email.value,
@@ -20,8 +20,17 @@ function login() {
         method: "POST",
         headers: myHeaders,
         body: raw,
-        redirect: follow
+        redirect: 'follow'
     };
 
-    fetch()
+    fetch(apiUrl+"login", requestOptions)
+        .then(response => {
+            if (response.ok) {
+                alert('Connexion réussie');
+                return response.json();
+            } else {
+                alert('Connexion échouée, vérifiez vos identifiants')
+            }
+        })
+        .catch(error => console.log('error', error))
 }

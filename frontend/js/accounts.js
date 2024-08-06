@@ -21,19 +21,20 @@ function newUser() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: 'follow',
     };
 
-    fetch(apiUrl + "new", requestOptions)
+    fetch(apiUrl + "registration", requestOptions)
         .then(response => {
             if (response.ok) {
+                alert("Bravo, le compte associé à l'email : "+mailNewUser.value+" a bien été créé.");
                 return response.json();
             } else { 
                 alert("Erreur dans la création du compte");
             }
         })
-        .then(result => {
-            alert("Bravo, le compte associé à l'email : "+mailNewUser.value+" a bien été créé.");
-        })
+        // .then(result => {
+        //     alert("Bravo, le compte associé à l'email : "+mailNewUser.value+" a bien été créé.");
+        // })
         .catch(error => console.log('error', error));
 }
