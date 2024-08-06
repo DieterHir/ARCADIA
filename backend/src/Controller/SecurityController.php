@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api', name: 'app_api_')]
 class SecurityController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer)
+    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, UserRepository $repository)
     {
     }
 
@@ -36,7 +37,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/login', name: 'login', methods: 'POST')]
-    public function login(#[CurrentUser] ?User $user): JsonResponse
+    public function login(#[User] ?User $user): JsonResponse
     {
         if (null === $user) {
             return new JsonResponse(['message' => 'Missing credentials'], Response::HTTP_UNAUTHORIZED);
@@ -47,5 +48,19 @@ class SecurityController extends AbstractController
             'apiToken' => $user->getApiToken(),
             'roles' => $user->getRoles(),
         ]);
+    }
+
+    #[Route('/accounts', name: 'accounts', methods: 'GET')]
+    public function display(UserRepository $repository) {
+        $users = $repository->findAll();
+
+        $usersData = [];
+        foreach($users as $user) {
+            $usersData[] = [
+                'email' => $user->getEmail(),
+            ];
+        }
+
+        return new JsonResponse($usersData);
     }
 }
