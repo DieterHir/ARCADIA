@@ -5,8 +5,8 @@ export const allRoutes = [
     new Route("/services", "Nos Services", "/pages/services.html"),
     new Route("/habitats", "Les Habitats", "/pages/habitats.html"),
     new Route("/contact", "Contact", "/pages/contact.html"),
-    new Route("/login", "Connexion", "/pages/login.html", "../../js/login.js"),
-    new Route("/accounts", "Gestion des comptes", "/pages/admin/accounts.html", "../../js/accounts.js"),
+    new Route("/login", "Connexion", "/pages/login.html", "../js/login.js"),
+    new Route("/accounts", "Gestion des comptes", "/pages/admin/accounts.html", "js/accounts.js"),
 ];
 
 export const websiteName = "Arcadia";

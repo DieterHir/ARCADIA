@@ -1,9 +1,24 @@
-<h1>Gestion des comptes employés</h1>
-<form id="formNewUser">
-    <label for="email">Mail</label>
-    <input type="text" id="email" name="email">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password">
+<div class="fond-secondary text-center p-3">
+    <h1 class="h1-font secondary">Gestion des comptes employés</h1>
+</div>
 
-    <button type="button" id="new">Créer un nouveau compte employé</button>
-</form>
+<h2 class="h2-font secondary fond-secondary m-0 p-3 text-center">Créer un nouveau compte employé</h2>
+
+<div class="fond-primary text-center d-flex justify-content-center p-4">
+    <form class="fond-primary login-form" id="formNewUser">
+        <label for="email">Mail</label>
+        <input type="text" id="email" name="email">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+
+        <button type="button" id="new">Créer un nouveau compte employé</button>
+    </form>
+</div>
+
+<div class="fond-secondary text-center p-3">
+    <h2 class="h2-font secondary">Comptes employés existants</h2>
+</div>
+
+<div class="fond-primary text-center d-flex justify-content-center p-4">
+    <ul id="userList" class="primary text-font" style="list-style: none;"></ul>
+</div>

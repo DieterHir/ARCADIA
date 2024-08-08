@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api', name: 'app_api_')]
 class SecurityController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, UserRepository $repository)
+    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UserRepository $repository,)
     {
     }
 
@@ -37,16 +37,16 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/login', name: 'login', methods: 'POST')]
-    public function login(#[User] ?User $user): JsonResponse
+    public function login(UserRepository $repository): JsonResponse
     {
-        if (null === $user) {
+        if (null === $repository) {
             return new JsonResponse(['message' => 'Missing credentials'], Response::HTTP_UNAUTHORIZED);
         }
 
         return new JsonResponse([
-            'user' => $user->getUserIdentifier(),
-            'apiToken' => $user->getApiToken(),
-            'roles' => $user->getRoles(),
+            'user' => $repository->getUserIdentifier(),
+            'apiToken' => $repository->getApiToken(),
+            'roles' => $repository->getRoles(),
         ]);
     }
 
@@ -62,5 +62,19 @@ class SecurityController extends AbstractController
         }
 
         return new JsonResponse($usersData);
+    }
+
+    #[Route('/{email}', name: 'delete', methods: 'DELETE')]
+    public function delete(string $email, UserRepository $repository)
+    {
+        $user = $repository->findOneBy(['email' => $email]);
+        if (!$user) {
+            throw $this->createNotFoundException("Pas d'utilisateur trouvé pour cet email");
+        }
+
+        $this->manager->remove($user);
+        $this->manager->flush();
+
+        return $this->json(['message' => "Compte employé supprimé"], Response::HTTP_NO_CONTENT);
     }
 }
