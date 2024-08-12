@@ -1,3 +1,4 @@
+//Variables de couleur, fond et font//
 $primary: #FFFFFF;
 $secondary: #FFC900;
 $dark: #000000;
@@ -27,10 +28,6 @@ $navigation-font: "PoetsenOne";
 .secondary-toggler {
     color: $secondary;
 }
-
-// .inner-shadow {
-//     box-shadow: inset 0em 1em black;
-// }
 
 .header {
     background-color: $bg-primary;
@@ -118,17 +115,6 @@ p {
     padding-bottom: 1rem;
 }
 
-// #avis {
-//     height: 380px;
-//     position: relative;
-
-//     .fond-foret {
-//         max-height: 380px;
-//         max-width: 100%;
-//         object-fit: cover;
-//     }
-// }
-
 .fond-foret {
     width: auto;
     height: 550px;
@@ -156,6 +142,11 @@ p {
         background-color: $bg-secondary;
         border: none;
     }
+}
+
+#review button {
+    background-color: transparent;
+    border: none;
 }
 
 @include media-breakpoint-up(sm) {
