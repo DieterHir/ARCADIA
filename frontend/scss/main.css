@@ -12070,6 +12070,16 @@ p {
   margin: 5%;
 }
 
+.review-form {
+  width: 70%;
+  height: 60%;
+}
+.review-form textarea {
+  background: #183833;
+  border: none;
+  resize: none;
+}
+
 .login-form {
   width: 80%;
   height: auto;

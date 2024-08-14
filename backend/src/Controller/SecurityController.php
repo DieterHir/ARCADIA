@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api', name: 'app_api_')]
 class SecurityController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UserRepository $repository,) {}
+    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UserRepository $repository) {}
 
     #[Route('/registration', name: 'registration', methods: 'POST')]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
