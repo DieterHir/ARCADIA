@@ -1,4 +1,4 @@
-let apiUrl = "http://localhost:8000/api/"
+let apiUrl = "http://localhost:8000/api/";
 
 let btn_create = document.getElementById("new");
 let mailNewUser = document.getElementById("email");
@@ -73,7 +73,7 @@ function displayUsers() {
                 });
             });
         })
-        .catch(error => console.error("Erreur:", error));
+        .catch(error => console.error("Erreur: ", error));
 }
 
 displayUsers();

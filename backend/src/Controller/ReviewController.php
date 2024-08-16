@@ -32,4 +32,57 @@ class ReviewController extends AbstractController
             Response::HTTP_CREATED
         );
     }
+
+     #[Route('/displayReviews', name: 'displayReviews', methods: 'GET')]
+     public function displayReviews(ReviewRepository $repository): JsonResponse
+     {
+        $reviews = $repository->findAll();
+
+        $reviewsData = [];
+        foreach ($reviews as $review) {
+            $reviewsData[] = [
+                'id' => $review->getId(),
+                'visitor_name' => $review->getVisitorName(),
+                'message' => $review->getMessage(),
+                'createdAt' => $review->getCreatedAt(),
+                'state' => $review->getState(),
+            ];
+        }
+
+        return new JsonResponse($reviewsData);
+     }
+
+     #[Route('/{id}', name: 'delete', methods: 'DELETE')]
+     public function delete(int $id, ReviewRepository $repository): JsonResponse
+     {
+        $review = $repository->findOneBy(['id' => $id]);
+
+        if (!$review) {
+            throw $this->createNotFoundException("Pas d'avis trouvé pour cet id");
+        }
+
+        $this->manager->remove($review);
+        $this->manager->flush();
+
+        return $this->json(['message' => "Avis supprimé"], Response::HTTP_NO_CONTENT);
+     }
+
+     #[Route('/{id}', name: 'checked', methods: 'PUT')]
+     public function check(int $id, ReviewRepository $repository): JsonResponse
+     {
+        $review = $repository->findOneBy(['id' => $id]);
+
+        if (!$review) {
+            throw $this->createNotFoundException("Pas d'avis trouvé pour cet id");
+        }
+
+        $review->setState("checked");
+        
+        $this->manager->flush();
+
+        return new JsonResponse(
+            ['review' => $review->getId()],
+            Response::HTTP_NO_CONTENT
+        );
+     }
 }
