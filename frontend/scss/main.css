@@ -11992,6 +11992,14 @@ textarea.form-control-lg {
   color: #FFC900;
 }
 
+#formNewUser input {
+  width: 50%;
+}
+
+.card-habitat p {
+  width: 50%;
+}
+
 #mentions {
   background-color: #0D2C3B;
   padding-bottom: 1px;

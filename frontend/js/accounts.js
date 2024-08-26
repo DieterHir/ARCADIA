@@ -3,10 +3,12 @@ let apiUrl = "http://localhost:8000/api/";
 let btn_create = document.getElementById("new");
 let mailNewUser = document.getElementById("email");
 let passwordNewUser = document.getElementById("password");
+let modalContainer = document.getElementById("modalContainer");
 
 btn_create.addEventListener("click", newUser);
 
 function newUser() {
+    let roleInput = document.querySelector('input[name="role"]:checked');
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -14,7 +16,7 @@ function newUser() {
     let raw = JSON.stringify({
         "email": mailNewUser.value,
         "password": passwordNewUser.value,
-        "role": "employee",
+        "roles": [roleInput.value],
     });
 
     let requestOptions = {
@@ -58,10 +60,37 @@ function displayUsers() {
                 let userdata = document.createElement("li");
                 userdata.textContent = user.email;
 
+                // let deleteButton = document.createElement("button");
+                // deleteButton.textContent = "Supprimer";
+                // deleteButton.classList.add("deleteButton");
+                // deleteButton.id = user.id;
                 let deleteButton = document.createElement("button");
                 deleteButton.textContent = "Supprimer";
-                deleteButton.classList.add("deleteButton");
-                deleteButton.id = user.id;
+                deleteButton.classList.add("btn", "btn-primary");
+                deleteButton.setAttribute("data-bs-toggle", "modal");
+                deleteButton.setAttribute("data-bs-target", "#" + user.id + "modal");
+
+                let deleteModal = `
+                    <div class="modal fade" id="${user.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModale">Suppression d'un compte</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary deleteButton" data-bs-dismiss="modal" id="${user.id}">Confirmer la suppression</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                
+                modalList.innerHTML += deleteModal;
 
                 userdata.appendChild(deleteButton);
 
@@ -101,7 +130,7 @@ function deleteUser(id) {
         })
         .then(data => {
             if (Object.keys(data).length === 0) {
-                alert('Utilisateur n°'+`${id}`+' supprimé avec succès.');
+                alert('Utilisateur n°' + `${id}` + ' supprimé avec succès.');
             } else {
                 alert(data.message);
             }

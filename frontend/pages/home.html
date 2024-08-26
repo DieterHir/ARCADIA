@@ -62,10 +62,14 @@
 <div class="fond-foret py-4 text-center d-flex align-items-center justify-content-center">
     <div id="review" class="fond-tertiary primary">
         <div id="commentary" class="button-font">${texte de l'avis}</div>
-        <div id="visitor" class="h2-font">${nom du visiteur} - ${date de l'avis}</div>
+        <div class="h2-font d-flex justify-content-center">
+            <p id="visitor"></p>
+            <p class="px-4">-</p>
+            <p id="reviewDate"></p>
+        </div>
         <div class="d-flex justify-content-around">
-            <button><i class="bi bi-arrow-left primary"></i></button>
-            <button><i class="bi bi-arrow-right primary"></i></button>
+            <button id="previousReview"><i class="bi bi-arrow-left primary"></i></button>
+            <button id="nextReview"><i class="bi bi-arrow-right primary"></i></button>
         </div>
     </div>
 </div>

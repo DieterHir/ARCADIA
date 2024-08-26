@@ -4,14 +4,25 @@
 
 <h2 class="h2-font secondary fond-secondary m-0 p-3 text-center">Créer un nouveau compte employé</h2>
 
-<div class="fond-primary text-center d-flex justify-content-center p-4">
-    <form class="fond-primary login-form" id="formNewUser">
+<div class="fond-primary text-center p-4">
+    <form class="fond-primary primary login-form d-flex flex-column align-items-center" id="formNewUser">
         <label for="email">Mail</label>
         <input type="text" id="email" name="email">
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
+        <fieldset>
+            <legend>Sélectionnez un rôle</legend>
+            <div>
+                <input type="radio" id="employee" name="role" value="EMPLOYEE" checked>
+                <label for="employee">Employé(e)</label>
+            </div>
+            <div>
+                <input type="radio" id="vet" name="role" value="VET">
+                <label for="vet">Vétérinaire</label>
+            </div>
+        </fieldset>
 
-        <button type="button" id="new">Créer un nouveau compte employé</button>
+        <button type="button" id="new" class="mt-3">Créer un nouveau compte employé</button>
     </form>
 </div>
 
@@ -22,3 +33,5 @@
 <div class="fond-primary text-center d-flex justify-content-center p-4">
     <ul id="userList" class="primary text-font" style="list-style: none;"></ul>
 </div>
+
+<div id="modalList"></div>
