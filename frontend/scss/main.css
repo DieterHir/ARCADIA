@@ -11996,6 +11996,14 @@ textarea.form-control-lg {
   width: 50%;
 }
 
+.habitatButtons {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
 .card-habitat p {
   width: 50%;
 }

@@ -49,6 +49,14 @@ $navigation-font: "PoetsenOne";
     }
 }
 
+.habitatButtons {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
 .card-habitat {
     p {
         width: 50%;

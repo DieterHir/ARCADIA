@@ -87,7 +87,7 @@ function deleteReview(id) {
             return response.json();
         })
         .then(data => {
-            if(Object.keys(data).length === 0) {
+            if (Object.keys(data).length === 0) {
                 alert('Avis n°'+`${id}`+' supprimé avec succès');
             } else {
                 alert(data.message);
