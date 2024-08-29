@@ -62,4 +62,20 @@ class HabitatController extends AbstractController
 
         return $this->json(['message' => "Avis supprimé"], Response::HTTP_NO_CONTENT);
     }
+
+    #[Route('/{id}', name: 'update', methods: 'PUT')]
+    public function update(int $id, HabitatRepository $repository, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager): JsonResponse
+    {
+        $habitat = $repository->findOneBy(['id' => $id]);
+
+        if (!$habitat) {
+            throw $this->createNotFoundException("Pas d'habitat trouvé pour cet id");
+        }
+
+        $serializer->deserialize($request->getContent(), Habitat::class, 'json', ['object_to_populate' => $habitat]);
+
+        $manager->flush();
+
+        return $this->json(['message' => 'Habitat mis à jour'], Response::HTTP_NO_CONTENT);
+    }
 }

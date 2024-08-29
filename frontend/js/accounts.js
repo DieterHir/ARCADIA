@@ -3,7 +3,6 @@ let apiUrl = "http://localhost:8000/api/";
 let btn_create = document.getElementById("new");
 let mailNewUser = document.getElementById("email");
 let passwordNewUser = document.getElementById("password");
-let modalContainer = document.getElementById("modalContainer");
 
 btn_create.addEventListener("click", newUser);
 
@@ -60,15 +59,11 @@ function displayUsers() {
                 let userdata = document.createElement("li");
                 userdata.textContent = user.email;
 
-                // let deleteButton = document.createElement("button");
-                // deleteButton.textContent = "Supprimer";
-                // deleteButton.classList.add("deleteButton");
-                // deleteButton.id = user.id;
                 let deleteButton = document.createElement("button");
                 deleteButton.textContent = "Supprimer";
                 deleteButton.classList.add("btn", "btn-primary");
                 deleteButton.setAttribute("data-bs-toggle", "modal");
-                deleteButton.setAttribute("data-bs-target", "#" + user.id + "modal");
+                deleteButton.setAttribute("data-bs-target", `#${user.id}modal`);
 
                 let deleteModal = `
                     <div class="modal fade" id="${user.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
@@ -136,5 +131,5 @@ function deleteUser(id) {
             }
             displayUsers();
         })
-        .catch(error => console.error('Erreur:', error.message));
+        .catch(error => console.error("Erreur: ", error.message));
 }
