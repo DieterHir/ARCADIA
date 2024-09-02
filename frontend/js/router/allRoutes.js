@@ -10,6 +10,7 @@ export const allRoutes = [
     new Route("/reviews", "Avis visiteur", "/pages/reviews.html", "js/reviews.js"),
     new Route("/reviews-adm", "Administration des avis visiteurs", "/pages/admin/reviews-adm.html", "js/reviews-adm.js"),
     new Route("/habitats", "Nos Habitats", "/pages/habitats.html", "../js/habitats.js"),
+    new Route("/animals", "Administration des animaux", "/pages/admin/animals.html", "js/animals.js"),
 ];
 
 export const websiteName = "Arcadia";

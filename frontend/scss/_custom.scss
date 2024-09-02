@@ -84,6 +84,39 @@ $navigation-font: "PoetsenOne";
     object-fit: cover;
 }
 
+.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+        background-color: transparent;
+        border: none;
+        color: $secondary;
+    }
+
+    &:focus {
+        background-color: transparent;
+        border: none;
+        color: $secondary;
+    }
+
+    &:active {
+        background-color: transparent;
+        border: none;
+        color: $secondary;
+    }
+}
+
+.dropdown-menu {
+    background-color: $bg-primary;
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+    border: none;
+    color: $secondary;
+}
+
 .banner {
     position: relative;
 
@@ -151,6 +184,7 @@ p {
 .review-form {
     width: 70%;
     height: 60%;
+
     textarea {
         background: $bg-secondary;
         border: none;

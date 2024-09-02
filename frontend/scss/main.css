@@ -12028,6 +12028,36 @@ textarea.form-control-lg {
      object-fit: cover;
 }
 
+.dropdown-toggle {
+  background-color: transparent;
+  border: none;
+}
+.dropdown-toggle:hover {
+  background-color: transparent;
+  border: none;
+  color: #FFC900;
+}
+.dropdown-toggle:focus {
+  background-color: transparent;
+  border: none;
+  color: #FFC900;
+}
+.dropdown-toggle:active {
+  background-color: transparent;
+  border: none;
+  color: #FFC900;
+}
+
+.dropdown-menu {
+  background-color: #0D2C3B;
+}
+
+.dropdown-item:hover {
+  background-color: transparent;
+  border: none;
+  color: #FFC900;
+}
+
 .banner {
   position: relative;
 }
