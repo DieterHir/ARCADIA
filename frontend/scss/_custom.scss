@@ -218,10 +218,48 @@ p {
     border: none;
 }
 
-@include media-breakpoint-up(sm) {
-    hr {
-        display: none;
+.miniaAnimalCard {
+    img {
+        border-radius: 25%;
     }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+        border-radius: 25%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    &:hover .overlay {
+        opacity: 1;
+    }
+}
+
+#animalDetails {
+    width: 80%;
+    height: 80%;
+    div {
+        height: 100%;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    #infos {
+        hr {
+            display: none;
+        }
+    }
+
 
     #banniere {
         height: 200px;

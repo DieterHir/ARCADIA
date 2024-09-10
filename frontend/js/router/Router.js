@@ -19,9 +19,10 @@ const getRouteByUrl = (url) => {
     }
 };
 
-const LoadContentPage = async() => {
+const LoadContentPage = async () => {
+    
     const path = window.location.pathname;
-    const actualRoute = getRouteByUrl(path);
+    const actualRoute = findRoute(path);
     const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 
@@ -44,6 +45,34 @@ const routeEvent = (event) => {
 
     LoadContentPage();
 };
+
+function findRoute(path) {
+    let route = allRoutes.find(r => {
+        let routeRegex = new RegExp("^" + r.url.replace(':id', '\\d+') + "$");
+        //console.log(routeRegex, r, path, routeRegex.test(path));
+        return routeRegex.test(path);
+    });
+
+    if (route != null) {
+        return route;
+    } else {
+        return route404;
+    }
+};
+
+// window.addEventListener("hashchange", function() {
+//     let route = findRoute(path);
+
+//     if (route) {
+//         loadPage(route.page);
+
+//         let idMatch = path.match(/animal\/(\d+)/);
+//         if (idMatch) {
+//             let animalId = idMatch[1];
+//             loadAnimalDetails(animalId);
+//         }
+//     }
+// });
 
 window.onpopstate = LoadContentPage;
 window.route = routeEvent;

@@ -32,6 +32,24 @@ class Animal
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $State = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $vetReview = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lastMealType = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $lastMealQty = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastVetVisit = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +123,78 @@ class Animal
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->State;
+    }
+
+    public function setState(?string $State): static
+    {
+        $this->State = $State;
+
+        return $this;
+    }
+
+    public function getVetReview(): ?string
+    {
+        return $this->vetReview;
+    }
+
+    public function setVetReview(?string $vetReview): static
+    {
+        $this->vetReview = $vetReview;
+
+        return $this;
+    }
+
+    public function getLastMealType(): ?string
+    {
+        return $this->lastMealType;
+    }
+
+    public function setLastMealType(?string $lastMealType): static
+    {
+        $this->lastMealType = $lastMealType;
+
+        return $this;
+    }
+
+    public function getLastMealQty(): ?int
+    {
+        return $this->lastMealQty;
+    }
+
+    public function setLastMealQty(?int $lastMealQty): static
+    {
+        $this->lastMealQty = $lastMealQty;
+
+        return $this;
+    }
+
+    public function getLastVetVisit(): ?\DateTimeInterface
+    {
+        return $this->lastVetVisit;
+    }
+
+    public function setLastVetVisit(?\DateTimeInterface $lastVetVisit): static
+    {
+        $this->lastVetVisit = $lastVetVisit;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -1,4 +1,4 @@
-let apiUrl = "http://localhost:8000/habitat/"
+let apiUrl = "http://localhost:8000/habitat/";
 
 let habitatName = document.getElementById("name");
 let habitatDescription = document.getElementById("description");
@@ -127,10 +127,10 @@ function displayHabitats(habitats) {
         updateButton.textContent = "Modifier";
         updateButton.id = habitat.id;
         updateButton.setAttribute("data-bs-toggle", "modal");
-        updateButton.setAttribute("data-bs-target", `#${habitat.id}update`)
+        updateButton.setAttribute("data-bs-target", `#${habitat.id}update`);
 
         let updateModal = `
-            <div class="modal fade" id="${habitat.id}update" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
+            <div class="modal fade" id="${habitat.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -138,7 +138,7 @@ function displayHabitats(habitats) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="fond-primary primary login-form d-flex flex-column align-items-center" id="formNewUser">
+                            <form class="fond-primary primary login-form d-flex flex-column align-items-center">
                                 <label for="name">Nom de l'habitat</label>
                                 <input type="text" id="updatedName${habitat.id}" name="name">
                                 <label for="description">Description</label>

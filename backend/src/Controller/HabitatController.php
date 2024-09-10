@@ -60,7 +60,7 @@ class HabitatController extends AbstractController
         $this->manager->remove($habitat);
         $this->manager->flush();
 
-        return $this->json(['message' => "Avis supprimé"], Response::HTTP_NO_CONTENT);
+        return $this->json(['message' => "Habitat supprimé"], Response::HTTP_NO_CONTENT);
     }
 
     #[Route('/{id}', name: 'update', methods: 'PUT')]
