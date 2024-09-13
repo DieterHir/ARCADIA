@@ -81,7 +81,7 @@ function displayHabitats(habitats) {
                                         <img src="../images/${habitat.image}" alt="${habitat.image}"/>
                                         <p class="primary text-font align-self-center text-end">${habitat.description}</p>
                                     </div>
-                                    <button class="button">Découvrir ses habitants</button>`
+                                    <a href="/habitats/animalsList/${habitat.id}"><button class="button">Découvrir ses habitants</button></a>`
         } else {
             habitatDiv.classList.add('fond-primary');
             habitatCard.innerHTML = `<h1 class="secondary h1-font">${habitat.name}</h1>
@@ -89,7 +89,7 @@ function displayHabitats(habitats) {
                                         <p class="primary text-font align-self-center text-start">${habitat.description}</p>
                                         <img src="../images/${habitat.image}" alt="${habitat.image}">
                                     </div>
-                                    <button class="button">Découvrir ses habitants</button>`
+                                    <a href="/habitats/animalsList/${habitat.id}"><button class="button">Découvrir ses habitants</button></a>`
         }
 
         let habitatButtons = document.createElement('div');
@@ -162,7 +162,7 @@ function displayHabitats(habitats) {
         habitatButtons.appendChild(deleteButton);
 
         habitatDiv.appendChild(habitatCard);
-        habitatDiv.appendChild(habitatButtons);
+        // habitatDiv.appendChild(habitatButtons);
         habitatDiv.classList.add('d-flex');
 
         habitatsContainer.appendChild(habitatDiv);
@@ -258,3 +258,5 @@ function updateHabitat(id) {
 }
 
 getHabitats();
+
+console.log("hi");

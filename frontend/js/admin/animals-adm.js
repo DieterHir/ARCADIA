@@ -44,6 +44,7 @@ async function loadContent() {
 
 function addAnimal() {
     let animalImagePath = animalImage.value.split("\\");
+    console.log(habitatSelect.value);
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -55,6 +56,7 @@ function addAnimal() {
         "age": parseInt(animalAge.value, 10),
         "size": parseInt(animalSize.value, 10),
         "weight": parseInt(animalWeight.value, 10),
+        "habitat": parseInt(habitatSelect.value, 10),
     });
 
     let requestOptions = {

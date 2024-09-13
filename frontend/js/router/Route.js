@@ -3,6 +3,8 @@ export default class Route {
         this.url = url;
         this.title = title;
         this.pathHtml = pathHtml;
-        this.pathJs = pathJs;
+        if (pathJs !== "") {
+            this.pathJs = pathJs;
+        }
     }
 }

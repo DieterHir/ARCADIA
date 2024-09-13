@@ -35,17 +35,17 @@ function displayAnimals(animals) {
         let animalInfos = document.createElement('div');
         animalInfos.classList.add('align-items-center', 'd-flex', 'justify-content-evenly');
 
-        animalInfos.innerHTML = `<img src="/images/${animal.image}" class="rounded" alt="photo de ${animal.name}" style="width: 100px; height: 100px;"/>
-                                 <p>${animal.name}</p>
-                                 <p>Age: ${animal.age} ans</p>
-                                 <p>Taille: ${animal.size} cm</p>
-                                 <p>Poids: ${animal.weight} kg</p>`;
+        animalInfos.innerHTML = `<a href="/animal/${animal.id}"><img src="/images/${animal.image}" class="rounded" alt="photo de ${animal.name}" style="width: 100px; height: 100px;"/></a>
+                                 <p class="text-uppercase">${animal.name}</p>
+                                 <p class="text-uppercase">Age: ${animal.age} ans</p>
+                                 <p class="text-uppercase">Taille: ${animal.size} cm</p>
+                                 <p class="text-uppercase">Poids: ${animal.weight} kg</p>`;
         animalDiv.appendChild(animalInfos);
 
         let reviewDiv = document.createElement('div');
         reviewDiv.classList.add('fond-secondary', 'd-flex', 'mx-4', 'justify-content-center');
 
-        if (animal.state !== null) {
+        if (animal.state !== null && animal.state !== "") {
             let dateLastVisit = animal.lastVetVisit.date;
             let cleanDate = dateLastVisit.split('.')[0];
 

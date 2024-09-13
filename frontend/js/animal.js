@@ -35,15 +35,17 @@ function displayInformations(id) {
             name.innerHTML = `<span class="secondary">Nom :</span> ${animal.name}`;
             species.innerHTML = `<span class="secondary">Race :</span> ${animal.species}`;
             age.innerHTML = `<span class="secondary">Age :</span> ${animal.age}`;
-            //habitat.innerHTML = `Habitat: ${animal.habitat}`;
-            // if (animal.state !== null && animal.stateReview !== null) {
-            state.innerHTML = `<h2 class="secondary">Etat:</h2> ${animal.state}`;
-            stateReview.innerHTML = `<h2 class="secondary">Commentaire:</h2> ${animal.stateReview}`;
+            // if (animal.habitat !== null && animal.habitat !== "") {
+            //     habitat.innerHTML = `<span class="secondary">Habitat : </span>${animal.habitat}`;
             // }
+            if (animal.state !== null && animal.stateReview !== null && animal.state !== "" && animal.stateReview !== "") {
+                state.innerHTML = `<h2 class="secondary">Etat:</h2> ${animal.state}`;
+                stateReview.innerHTML = `<h2 class="secondary">Commentaire:</h2> ${animal.stateReview}`;
+            }
             if (animal.lastMeal !== null && animal.lastMealQty != null) {
                 lastMeal.innerHTML = `Dernier repas: ${animal.lastMealQty}g de ${animal.lastMeal}`;
             }
-            if (animal.lastVetVisit !== null) {
+            if (animal.lastVetVisit !== null && animal.lastVetVisit !== "") {
                 let dateLastVisit = animal.lastVetVisit.date;
                 let cleanDate = dateLastVisit.split('.')[0];
 
