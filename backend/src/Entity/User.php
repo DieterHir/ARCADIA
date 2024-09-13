@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,11 +37,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $apiToken = null;
+
+    #[ORM\ManyToOne(inversedBy: 'vetReview')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?role $role = null;
+
+    #[ORM\OneToMany(targetEntity: vetReview::class, mappedBy: 'user')]
+    private Collection $vetReview;
     
     /** @throws \Exception */
     public function __construct()
     {
         $this->apiToken = bin2hex(random_bytes(20));
+        $this->vetReview = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +173,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApiToken(string $apiToken): static
     {
         $this->apiToken = $apiToken;
+
+        return $this;
+    }
+
+    public function getRole(): ?role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?role $role): static
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, vetReview>
+     */
+    public function getVetReview(): Collection
+    {
+        return $this->vetReview;
+    }
+
+    public function addVetReview(vetReview $vetReview): static
+    {
+        if (!$this->vetReview->contains($vetReview)) {
+            $this->vetReview->add($vetReview);
+            $vetReview->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVetReview(vetReview $vetReview): static
+    {
+        if ($this->vetReview->removeElement($vetReview)) {
+            // set the owning side to null (unless already changed)
+            if ($vetReview->getUser() === $this) {
+                $vetReview->setUser(null);
+            }
+        }
 
         return $this;
     }

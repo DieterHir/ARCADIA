@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Habitat;
+use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,5 +78,34 @@ class HabitatController extends AbstractController
         $manager->flush();
 
         return $this->json(['message' => 'Habitat mis à jour'], Response::HTTP_NO_CONTENT);
+    }
+
+    #[Route('/{id}', name: 'getAnimalsList', methods: 'GET')]
+    public function getAnimalsList(int $id, HabitatRepository $repository, AnimalRepository $animalRepository) :JsonResponse
+    {
+        $habitat = $repository->findOneBy(['id' => $id]);
+
+        if (!$habitat) {
+            throw $this->createNotFoundException("Pas d'habitat trouvé pour cet id");
+        }
+
+        $animals = $animalRepository->findBy(['habitat' => $habitat]);
+
+        // if (!$animals) {
+        //     throw $this->createNotFoundException("Pas d'animaux trouvé pour cet habitat");
+        //     return new JsonResponse();
+        // }
+
+        $data = [];
+        foreach ($animals as $animal) {
+            $data[] = [
+                'id' => $animal->getId(),
+                'image' => $animal->getImage(),
+                'name' => $animal->getName(),
+                'species' => $animal->getSpecies(),
+            ];
+        }
+        
+        return new JsonResponse($data);
     }
 }

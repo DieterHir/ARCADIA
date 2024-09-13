@@ -20,17 +20,17 @@ class Animal
     #[ORM\Column(length: 255)]
     private ?string $species = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $size = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $weight = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    // #[ORM\Column(type: Types::TEXT, nullable: true)]
+    // private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $State = null;
@@ -50,6 +50,9 @@ class Animal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\ManyToOne(targetEntity: Habitat::class, inversedBy: 'animals')]
+    private ?habitat $habitat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,7 +65,9 @@ class Animal
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        if (!empty($name)) {
+            $this->name = $name;
+        }
 
         return $this;
     }
@@ -74,7 +79,9 @@ class Animal
 
     public function setSpecies(string $species): static
     {
-        $this->species = $species;
+        if (!empty($species)) {
+            $this->species = $species;
+        }
 
         return $this;
     }
@@ -84,9 +91,11 @@ class Animal
         return $this->age;
     }
 
-    public function setAge(int $age): static
+    public function setAge(?int $age): static
     {
-        $this->age = $age;
+        if ($age !== null) {
+                $this->age = $age;
+        }
 
         return $this;
     }
@@ -96,9 +105,11 @@ class Animal
         return $this->size;
     }
 
-    public function setSize(int $size): static
+    public function setSize(?int $size): static
     {
-        $this->size = $size;
+        if ($size !== null) {
+            $this->size = $size;
+        }
 
         return $this;
     }
@@ -108,24 +119,28 @@ class Animal
         return $this->weight;
     }
 
-    public function setWeight(int $weight): static
+    public function setWeight(?int $weight): static
     {
-        $this->weight = $weight;
+        if ($weight !== null) {
+            $this->weight = $weight;
+        }
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+    // public function getDescription(): ?string
+    // {
+    //     return $this->description;
+    // }
 
-    public function setDescription(?string $description): static
-    {
-        $this->description = $description;
+    // public function setDescription(?string $description): static
+    // {
+    //     if (!empty($description)) {
+    //         $this->description = $description;
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getState(): ?string
     {
@@ -134,7 +149,9 @@ class Animal
 
     public function setState(?string $State): static
     {
-        $this->State = $State;
+        if (!empty($State)) {
+            $this->State = $State;
+        }
 
         return $this;
     }
@@ -146,7 +163,9 @@ class Animal
 
     public function setVetReview(?string $vetReview): static
     {
-        $this->vetReview = $vetReview;
+        if (!empty($vetReview)) {
+            $this->vetReview = $vetReview;
+        }
 
         return $this;
     }
@@ -158,7 +177,9 @@ class Animal
 
     public function setLastMealType(?string $lastMealType): static
     {
-        $this->lastMealType = $lastMealType;
+        if (!empty($lastMealType)) {
+            $this->lastMealType = $lastMealType;
+        }
 
         return $this;
     }
@@ -170,7 +191,9 @@ class Animal
 
     public function setLastMealQty(?int $lastMealQty): static
     {
-        $this->lastMealQty = $lastMealQty;
+        if (!empty($lastMealQty)) {
+            $this->lastMealQty = $lastMealQty;
+        }
 
         return $this;
     }
@@ -182,7 +205,9 @@ class Animal
 
     public function setLastVetVisit(?\DateTimeInterface $lastVetVisit): static
     {
-        $this->lastVetVisit = $lastVetVisit;
+        if (!empty($lastVetVisit)) {
+            $this->lastVetVisit = $lastVetVisit;
+        }
 
         return $this;
     }
@@ -194,7 +219,23 @@ class Animal
 
     public function setImage(?string $image): static
     {
-        $this->image = $image;
+        if (!empty($image)) {
+            $this->image = $image;
+        }
+
+        return $this;
+    }
+
+    public function getHabitat(): ?habitat
+    {
+        return $this->habitat;
+    }
+
+    public function setHabitat(?habitat $habitat): static
+    {
+        if (!empty($habitat)) {
+            $this->habitat = $habitat;
+        }
 
         return $this;
     }

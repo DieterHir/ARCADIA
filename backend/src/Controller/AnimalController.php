@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Animal;
+use App\Entity\Habitat;
 use App\Repository\AnimalRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,24 @@ class AnimalController extends AbstractController
     #[Route('/new', name: 'new', methods: 'POST')]
     public function new(Request $request): JsonResponse
     {
-        $animal = $this->serializer->deserialize($request->getContent(), Animal::class, 'json');
+        $data = $request->getContent();
+
+        $animal = $this->serializer->deserialize($data, Animal::class, 'json');
+
+        $decodedData = json_decode($data, true);
+        $habitatId = $decodedData['habitat'] ?? null;
+
+        if ($habitatId) {
+            $habitat = $this->manager->getRepository(Habitat::class)->find($habitatId);
+
+            if (!$habitat) {
+                return new JsonResponse(['error' => 'Habitat non trouvé'], Response::HTTP_NOT_FOUND);
+            }
+
+            $animal->setHabitat($habitat);
+        } else {
+            return new JsonResponse(['error' => 'Habitat non spécifié'], Response::HTTP_BAD_REQUEST);
+        }
 
         $this->manager->persist($animal);
         $this->manager->flush();
@@ -47,7 +65,7 @@ class AnimalController extends AbstractController
                 'age' => $animal->getAge(),
                 'size' => $animal->getSize(),
                 'weight' => $animal->getWeight(),
-                // 'habitat' => $animal->getHabitat(),
+                'habitat' => $animal->getHabitat(),
                 'state' => $animal->getState(),
                 'lastMeal' => $animal->getLastMealType(),
                 'lastMealQty' => $animal->getLastMealQty(),
@@ -105,13 +123,24 @@ class AnimalController extends AbstractController
             'image' => $animal->getImage(),
             'species' => $animal->getSpecies(),
             'age' => $animal->getAge(),
-            // 'habitat' => $animal->getHabitat(),
             'state' => $animal->getState(),
             'stateReview' => $animal->getVetReview(),
             'lastMeal' => $animal->getLastMealType(),
             'lastMealQty' => $animal->getLastMealQty(),
             'lastVetVisit' => $animal->getLastVetVisit(),
         ];
+
+        $habitatId = $animal->getHabitat();
+
+        if ($habitatId !== null && $habitatId !== "") {
+            $habitat = $this->manager->getRepository(Habitat::class)->find($habitatId);
+            $habitatName = $habitat->getName();
+
+            $animalData += [
+                'habitatId' => ($animal->getHabitat())->getId(),
+                'habitat' => $habitatName,
+            ];
+        }
 
         return new JsonResponse($animalData);
     }
