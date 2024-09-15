@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Entity\Habitat;
+use App\Entity\VetReviews;
 use App\Repository\AnimalRepository;
+use App\Repository\VetReviewsRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,28 +52,48 @@ class AnimalController extends AbstractController
     }
 
     #[Route('/getAnimals', name: 'getAnimals', methods: 'GET')]
-    public function getAnimals(AnimalRepository $repository): JsonResponse
+    public function getAnimals(AnimalRepository $repository, VetReviewsRepository $vetReviewsRepository): JsonResponse
     {
         $animals = $repository->findAll();
 
         $animalsData = [];
         foreach ($animals as $animal) {
-            $animalsData[] = [
-                'name' => $animal->getName(),
-                'id' => $animal->getId(),
-                // 'description' => $animal->getDescription(),
-                'image' => $animal->getImage(),
-                'species' => $animal->getSpecies(),
-                'age' => $animal->getAge(),
-                'size' => $animal->getSize(),
-                'weight' => $animal->getWeight(),
-                'habitat' => $animal->getHabitat(),
-                'state' => $animal->getState(),
-                'lastMeal' => $animal->getLastMealType(),
-                'lastMealQty' => $animal->getLastMealQty(),
-                'lastVetVisit' => $animal->getLastVetVisit(),
-                'vetReview' => $animal->getVetReview(),
-            ];
+            $lastReview = $vetReviewsRepository->findLatestReview($animal->getId());
+
+            if ($lastReview === null || $lastReview === "" || empty($lastReview))
+            {
+                $animalsData[] = [
+                    'name' => $animal->getName(),
+                    'id' => $animal->getId(),
+                    // 'description' => $animal->getDescription(),
+                    'image' => $animal->getImage(),
+                    'species' => $animal->getSpecies(),
+                    'age' => $animal->getAge(),
+                    'size' => $animal->getSize(),
+                    'weight' => $animal->getWeight(),
+                    'habitat' => $animal->getHabitat(),
+                    'state' => $animal->getState(),
+                    'lastMeal' => $animal->getLastMealType(),
+                    'lastMealQty' => $animal->getLastMealQty(),
+                ];
+            } else {
+                $animalsData[] = [
+                    'name' => $animal->getName(),
+                    'id' => $animal->getId(),
+                    // 'description' => $animal->getDescription(),
+                    'image' => $animal->getImage(),
+                    'species' => $animal->getSpecies(),
+                    'age' => $animal->getAge(),
+                    'size' => $animal->getSize(),
+                    'weight' => $animal->getWeight(),
+                    'habitat' => $animal->getHabitat(),
+                    'state' => $animal->getState(),
+                    'lastMeal' => $animal->getLastMealType(),
+                    'lastMealQty' => $animal->getLastMealQty(),
+                    'lastVetVisit' => $lastReview->getDate(),
+                    'vetReview' => $lastReview->getReview(),
+                ];
+            }
         }
 
         return new JsonResponse($animalsData);
@@ -124,10 +146,10 @@ class AnimalController extends AbstractController
             'species' => $animal->getSpecies(),
             'age' => $animal->getAge(),
             'state' => $animal->getState(),
-            'stateReview' => $animal->getVetReview(),
+            // 'stateReview' => $animal->getVetReview(),
             'lastMeal' => $animal->getLastMealType(),
             'lastMealQty' => $animal->getLastMealQty(),
-            'lastVetVisit' => $animal->getLastVetVisit(),
+            // 'lastVetVisit' => $animal->getLastVetVisit(),
         ];
 
         $habitatId = $animal->getHabitat();
@@ -149,13 +171,28 @@ class AnimalController extends AbstractController
     public function updateVetReview(int $id, AnimalRepository $repository, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager): JsonResponse
     {
         $animal = $repository->findOneBy(['id' => $id]);
+        $data = $request->getContent();
 
         if (!$animal) {
             throw $this->createNotFoundException("Pas d'animal trouvé pour cet id");
         }
 
-        $serializer->deserialize($request->getContent(), Animal::class, 'json', ['object_to_populate' => $animal]);
-        $animal->setLastVetVisit(new DateTimeImmutable());
+        // $serializer->deserialize($request->getContent(), Animal::class, 'json', ['object_to_populate' => $animal]);
+        // $animal->setLastVetVisit(new DateTimeImmutable());
+        $vetReview = $serializer->deserialize($data, VetReviews::class, 'json');
+
+        $reviewData = json_decode($data, true)['review'] ?? null;
+        if ($reviewData !== "" && $reviewData) {
+            $vetReview->setAnimal($animal);
+            $vetReview->setDate(new DateTimeImmutable());
+
+            $manager->persist($vetReview);
+        }
+
+        $animalData = json_decode($data, true)['animal'] ?? null;
+        if ($animalData && isset($animalData['state'])) {
+            $animal->setState($animalData['state']);
+        }
 
         $manager->persist($animal);
         $manager->flush();

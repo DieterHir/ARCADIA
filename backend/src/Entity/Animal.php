@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,8 +37,8 @@ class Animal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $State = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $vetReview = null;
+    // #[ORM\Column(type: Types::TEXT, nullable: true)]
+    // private ?string $vetReview = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastMealType = null;
@@ -44,14 +46,22 @@ class Animal
     #[ORM\Column(nullable: true)]
     private ?int $lastMealQty = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $lastVetVisit = null;
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    // private ?\DateTimeInterface $lastVetVisit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\ManyToOne(targetEntity: Habitat::class, inversedBy: 'animals')]
     private ?habitat $habitat = null;
+
+    #[ORM\OneToMany(targetEntity: VetReviews::class, mappedBy: 'animal', orphanRemoval: true)]
+    private Collection $vetReviews;
+
+    public function __construct()
+    {
+        $this->vetReviews = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -156,19 +166,19 @@ class Animal
         return $this;
     }
 
-    public function getVetReview(): ?string
-    {
-        return $this->vetReview;
-    }
+    // public function getVetReview(): ?string
+    // {
+    //     return $this->vetReview;
+    // }
 
-    public function setVetReview(?string $vetReview): static
-    {
-        if (!empty($vetReview)) {
-            $this->vetReview = $vetReview;
-        }
+    // public function setVetReview(?string $vetReview): static
+    // {
+    //     if (!empty($vetReview)) {
+    //         $this->vetReview = $vetReview;
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getLastMealType(): ?string
     {
@@ -198,20 +208,6 @@ class Animal
         return $this;
     }
 
-    public function getLastVetVisit(): ?\DateTimeInterface
-    {
-        return $this->lastVetVisit;
-    }
-
-    public function setLastVetVisit(?\DateTimeInterface $lastVetVisit): static
-    {
-        if (!empty($lastVetVisit)) {
-            $this->lastVetVisit = $lastVetVisit;
-        }
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -235,6 +231,36 @@ class Animal
     {
         if (!empty($habitat)) {
             $this->habitat = $habitat;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, VetReviews>
+     */
+    public function getVetReviews(): Collection
+    {
+        return $this->vetReviews;
+    }
+
+    public function addVetReview(VetReviews $vetReview): static
+    {
+        if (!$this->vetReviews->contains($vetReview)) {
+            $this->vetReviews->add($vetReview);
+            $vetReview->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVetReview(VetReviews $vetReview): static
+    {
+        if ($this->vetReviews->removeElement($vetReview)) {
+            // set the owning side to null (unless already changed)
+            if ($vetReview->getAnimal() === $this) {
+                $vetReview->setAnimal(null);
+            }
         }
 
         return $this;
