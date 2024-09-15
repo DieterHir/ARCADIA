@@ -39,7 +39,7 @@ function login() {
             let token = result.apiToken;
             setToken(token);
 
-            setCookie(roleCookieName, result.roles[0], 7);
+            setCookie(roleCookieName, result.roles, 7);
             window.location.replace("/");
         })
         .catch(error => console.log('error', error));
