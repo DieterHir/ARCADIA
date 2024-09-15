@@ -1,1 +1,34 @@
-cou
+<div class="fond-primary primary">
+    <h1 class="text-center py-2">Récap. des avis vétérinaires</h1>
+    <div class="d-flex justify-content-around py-5">
+        <input type="text" id="searchInput" placeholder="Rechercher.." class="col-4 ms-5 rounded">
+        <div id="sortDiv" class="d-flex align-items-center p-1 rounded">
+            <fieldset class="d-flex align-items-center">
+            <legend>Trier par :</legend>
+            </fieldset>
+            <div>
+                <input type="radio" id="sort1" name="sort" value="nameUp">
+                <label for="sort1">Nom ↑</label>
+            </div>
+            <div>
+                <input type="radio" id="sort2" name="sort" value="nameDown">
+                <label for="sort2">Nom ↓</label>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex flex-row px-5">
+        <table id="vetReviewsTable" class="flex-grow-1">
+            <thead>
+                <tr class="row">
+                    <th class="col-3">Nom de l'animal</th>
+                    <th class="col-3">Commentaire</th>
+                    <th class="col-3">Date/Heure</th>
+                    <th class="col-3">Vétérinaire</th>
+                </tr>
+            </thead>
+            <tbody id="vetReviewsContainer">
+
+            </tbody>
+        </table>
+    </div>
+</div>

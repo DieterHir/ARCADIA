@@ -1,43 +1,18 @@
-<div class="fond-secondary text-center">
-    <h1 class="secondary py-4 h1-font px-3">Une petite faim ?</h1>
-    <img src="../images/restaurant.jpg" alt="Restaurant lumineux avec une décoration chic">
-    <p class="primary text-font pt-4 px-4">Aux quatre coins de notre parc, retrouvez des espaces pour vous restaurer, de
-        la
-        petite à la grande faim : </br></br>
+<div class="fond-primary text-center p-4 d-flex"></div>
+    <form class="fond-primary primary d-flex flex-column align-items-center flex-grow-1" id="formNewService">
+        <label for="name">Nom du service</label>
+        <input type="text" id="name" name="name">
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
+        <label for="image">Image</label>
+        <input type="file" id="image" name="image">
 
-        · Stand de sucreries (barbe à papa, glaces,..)</br>
-        · Pizzeria (proposant également une carte de recettes à base pâtes)</br>
-        · Sandwicherie</p>
-    <p class="navigation-font primary pb-3 px-4" style="font-size: 1.5em; font-weight: bold;">Retrouvez la carte et le
-        détail
-        des plats proposés à l'accueil de notre parc</p>
+        <button type="button" id="new" class="mt-3">+</button>
+    </form>
 </div>
 
-<div class="fond-primary text-center">
-    <h1 class="secondary py-4 h1-font px-3">Visitez sans efforts</h1>
-    <img src="../images/train.jpg" alt="Petit train éléctrique">
-    <p class="primary text-font pt-4 px-4">Pour les petits (et les plus grands évidemment), nous proposons la visite de
-        nos
-        différents environnements en petit train (électrique pour coller à nos convictions écologiques).</p>
-    <p class="secondary h2-font py-3 px-4">Arrêt fréquent dans chacun des espaces</p>
-    <p class="primary text-font pb-3 px-4">Ce service étant gratuit, n'hésitez pas à l'emprunter pour vous déplacer d'un
-        environnement à l'autre.</p>
+<div id="servicesContainer">
+
 </div>
 
-<div class="fond-secondary text-center">
-    <h1 class="secondary py-4 h1-font px-3">Faites le plein d'informations</h1>
-    <img src="../images/guide.jpg" alt="Couple de visiteurs essayant de se repérer sans guide">
-    <p class="primary text-font pt-4 pb-3 px-4">Peur de vous sentir perdu dans la multitude d'environnements et
-        d'informations que
-        notre parc vous propose ?</br></br>
-
-        Optez pour une visite guidée avec un professionnel qui saura vous aider à profiter de votre visite tout en
-        repartant avec de nouvelles connaissances sur nos pensionnaires !</p>
-    <p class="primary navigation-font pb-3 px-4" style="font-size: 1.5em; font-weight: bold;">N'hésitez pas à nous
-        contacter pour plus d'informations ou le tarif
-        adapté à votre visite</p>
-</div>
-
-<div id="avis" class="fond-primary py-2 text-center">
-    <h2 class="h1-font secondary">Espace avis</h2>
-</div>
+<div id="modalList"></div>

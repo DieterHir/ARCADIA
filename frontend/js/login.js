@@ -8,6 +8,8 @@ btn_login.addEventListener("click", login);
 
 function login() {
 
+    console.log(password.value)
+
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -19,7 +21,7 @@ function login() {
     let requestOptions = {
         method: "POST",
         headers: myHeaders,
-        mode: 'no-cors',
+        // mode: 'no-cors',
         body: raw,
         redirect: 'follow'
     };
@@ -27,7 +29,6 @@ function login() {
     fetch(apiUrl+"login", requestOptions)
         .then(response => {
             if (response.ok) {
-                alert('Connexion réussie');
                 return response.json();
             } else {
                 email.classList.add("is-invalid");
@@ -38,7 +39,7 @@ function login() {
             let token = result.apiToken;
             setToken(token);
 
-            setCookie(RoleCookieName, result.roles[0], 7);
+            setCookie(roleCookieName, result.roles[0], 7);
             window.location.replace("/");
         })
         .catch(error => console.log('error', error));

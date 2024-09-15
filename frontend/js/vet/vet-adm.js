@@ -6,6 +6,9 @@ let modalList = document.getElementById('modalList');
 let animals = [];
 
 function getAnimals() {
+
+    animals = [];
+    
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -28,6 +31,7 @@ function getAnimals() {
 }
 
 function displayAnimals(animals) {
+    animalsReviewCards.innerHTML = "";
     animals.forEach(animal => {
         let animalDiv = document.createElement('div');
         animalDiv.classList.add('fond-secondary', 'primary', 'animalDiv', 'mb-4', 'd-flex', 'justify-content-stretch', 'flex-column', 'p-3');
@@ -68,6 +72,7 @@ function displayAnimals(animals) {
                 <p class="secondary pt-2 pb-0">Date de dernier passage : </p>
                 <p>${formattedDate}</p>
             </div>`;
+
             let arrowDiv = document.createElement('h1');
             arrowDiv.classList.add('text-center', 'h1-font', 'secondary', 'align-items-center', 'd-flex');
             arrowDiv.innerHTML = "=>";
@@ -125,7 +130,6 @@ function displayAnimals(animals) {
 }
 
 function updateReview(id) {
-    console.log(id);
     let newState = document.getElementById(`newState${id}`);
     let newReview = document.getElementById(`newReview${id}`);
 
@@ -133,8 +137,10 @@ function updateReview(id) {
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-        'state': newState.value,
-        'vetReview': newReview.value,
+        'review': newReview.value,
+        'animal': {
+            'state': newState.value,
+        },
     });
 
     let requestOptions = {
@@ -161,7 +167,7 @@ function updateReview(id) {
             } else {
                 alert(data.message);
             }
-            location.reload();
+            getAnimals();
         })
         .catch(error => console.error("Erreur: ", error.message));
 }

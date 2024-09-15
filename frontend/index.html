@@ -37,26 +37,26 @@
                         <li class="nav-item"><a href="/habitats" class="nav-link">Les habitats</a></li>
                         <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
                         <li class="nav-item"><a href="/reviews" class="nav-link">Avis</a></li>
-                        <li class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="dropdown connected">
+                            <button class="btn btn-primary dropdown-toggle primary vetOnly hidden" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Vet
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="/vet-adm" class="dropdown-item primary">Gestion vét. des animaux</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="dropdown connected">
+                            <button id="admin_employee" class="btn btn-primary dropdown-toggle primary employeeOnly hidden" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="/accounts" class="dropdown-item primary">Comptes</a></li>
+                                <li><a href="/accounts" class="dropdown-item primary adminOnly hidden">Comptes</a></li>
                                 <li><a href="/reviews-adm" class="dropdown-item primary">Gestion des avis</a></li>
                                 <li><a href="/animals-adm" class="dropdown-item primary">Animaux</a></li>
-                                <li><a href="/vetReviews-adm" class="dropdown-item primary">Récap des avis vét.</a></li>
+                                <li><a href="/vetReviews-adm" class="dropdown-item primary adminOnly hidden">Récap des avis vét.</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a href="/login" class="nav-link">Connexion</a></li>
+                        <li id="loginBarButton" class="nav-item"><a href="/login" class="nav-link">Connexion</a></li>
                     </ul>
                 </div>
             </nav>
@@ -132,6 +132,7 @@
         </div>
     </footer>
 
+    <script src="/js/script.js"></script>
     <script type="module" src="/js/router/Router.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

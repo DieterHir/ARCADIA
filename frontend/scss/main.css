@@ -11996,7 +11996,14 @@ textarea.form-control-lg {
   width: 50%;
 }
 
-.habitatButtons {
+#sortDiv {
+  border: 1px #FFFFFF solid;
+}
+#sortDiv input {
+  margin: 0.4rem;
+}
+
+.habitatButtons, .servicesButtons {
   width: 120px;
   display: flex;
   flex-direction: column;
@@ -12318,4 +12325,8 @@ hr {
 
 .fond-tertiary {
   background-color: #0083A0;
+}
+
+.hidden {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

@@ -1,4 +1,4 @@
-let apiUrl = "http://localhost:8000/review/"
+let apiUrl = "http://localhost:8000/review/";
 
 let reviewsToCheck = document.getElementById("reviewsToCheck");
 let reviewsChecked = document.getElementById("reviewsChecked");

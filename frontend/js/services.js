@@ -1,26 +1,28 @@
-let apiUrl = "http://localhost:8000/habitat/";
+let apiUrl = "http://localhost:8000/services/";
 
-let habitatName = document.getElementById("name");
-let habitatDescription = document.getElementById("description");
-let habitatImage = document.getElementById("image");
+let newServiceButton = document.getElementById("new");
+newServiceButton.addEventListener("click", addService);
 
-let newHabitatButton = document.getElementById("new");
-newHabitatButton.addEventListener("click", addHabitat);
+let servicesContainer = document.getElementById("servicesContainer");
 
-let habitatsContainer = document.getElementById("habitatsContainer");
+let serviceName = document.getElementById("name");
+let serviceDescription = document.getElementById("description");
+let serviceImage = document.getElementById("image");
 
-let habitats = [];
+let modalList = document.getElementById("modalList");
 
-function addHabitat() {
-    let habitatImagePath = habitatImage.value.split("\\");
+let services = [];
+
+function addService() {
+    let serviceImagePath = serviceImage.value.split("\\");
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-        "name": habitatName.value,
-        "description": habitatDescription.value,
-        "image": habitatImagePath[habitatImagePath.length - 1],
+        "name": serviceName.value,
+        "description": serviceDescription.value,
+        "image": serviceImagePath[serviceImagePath.length - 1],
     });
 
     let requestOptions = {
@@ -32,90 +34,91 @@ function addHabitat() {
     fetch(apiUrl + "new", requestOptions)
         .then(response => {
             if (response.ok) {
-                alert("Cet habitat a bien été créé.");
+                alert("Ce service a bien été ajouté.");
                 return response.json();
             } else {
-                alert("Erreur dans la création de l'habitat.");
+                alert("Erreur lors de l'ajout du service.");
             }
         })
         .then(data => {
-            getHabitats();
+            getServices();
         })
         .catch(error => console.log('error', error));
 }
 
-function getHabitats() {
+function getServices() {
+
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     let requestOptions = {
-        method: 'GET',
+        method: "GET",
         headers: myHeaders,
     };
 
-    fetch(apiUrl + "getHabitats", requestOptions)
+    fetch(apiUrl + "getServices", requestOptions)
         .then(response => response.json())
         .then(data => {
-            habitats = [];
-            data.forEach(habitat => {
-                habitats.push(habitat);
+            services = [];
+            data.forEach(service => {
+                services.push(service);
             });
         })
         .then(data => {
-            displayHabitats(habitats);
+            displayServices(services);
         })
         .catch(error => console.error("Erreur: ", error));
 }
 
-function displayHabitats(habitats) {
-    habitatsContainer.innerHTML = "";
-    habitats.forEach((habitat, index) => {
-        let habitatCard = document.createElement('div');
-        habitatCard.classList.add('text-center', 'card-habitat', 'flex-grow-1');
-        habitatCard.id = `habitat-${index}`;
+function displayServices(services) {
+    servicesContainer.innerHTML = "";
 
-        let habitatDiv = document.createElement('div');
+    services.forEach((service, index) => {
+        let serviceDiv = document.createElement('div');
 
-        if (index % 2 == 0) {
-            habitatDiv.classList.add('fond-secondary');
-            habitatCard.innerHTML = `<h1 class="secondary h1-font">${habitat.name}</h1>
-                                    <div class="d-flex justify-content-around">
-                                        <img src="../images/${habitat.image}" alt="${habitat.image}"/>
-                                        <p class="primary text-font align-self-center text-end">${habitat.description}</p>
-                                    </div>
-                                    <a href="/habitats/animalsList/${habitat.id}"><button class="button">Découvrir ses habitants</button></a>`
+        let serviceCard = document.createElement('div');
+        serviceCard.classList.add('text-center', 'flex-grow-1');
+
+        if (index % 2 === 0) {
+            serviceDiv.classList.add('fond-secondary', 'pb-5');
+
+            serviceCard.innerHTML = `   <h1 class="secondary py-4 h1-font px-3">${service.name}</h1>
+                                        <div class="d-flex justify-content-around">
+                                            <img class="rounded" src="../images/${service.image}" alt=""/>
+                                            <p class="primary text-font pt-4 px-4 align-self-center text-end">${service.description}</p>
+                                        </div>`;
         } else {
-            habitatDiv.classList.add('fond-primary');
-            habitatCard.innerHTML = `<h1 class="secondary h1-font">${habitat.name}</h1>
-                                    <div class="d-flex justify-content-around">
-                                        <p class="primary text-font align-self-center text-start">${habitat.description}</p>
-                                        <img src="../images/${habitat.image}" alt="${habitat.image}">
-                                    </div>
-                                    <a href="/habitats/animalsList/${habitat.id}"><button class="button">Découvrir ses habitants</button></a>`
+            serviceDiv.classList.add('fond-primary', 'pb-5');
+
+            serviceCard.innerHTML = `   <h1 class="secondary py-4 h1-font px-3">${service.name}</h1>
+                                        <div class="d-flex justify-content-around">
+                                            <p class="primary text-font pt-4 px-4 text-start align-self-center">${service.description}</p>
+                                            <img class="rounded" src="../images/${service.image}" alt=""/>
+                                        </div>`;
         }
 
-        let habitatButtons = document.createElement('div');
-        habitatButtons.classList.add('habitatButtons', 'ms-auto');
+        let serviceButtons = document.createElement('div');
+        serviceButtons.classList.add('servicesButtons', 'ms-auto');
 
         let deleteButton = document.createElement('button');
         deleteButton.textContent = "Supprimer";
-        deleteButton.id = habitat.id;
+        deleteButton.id = service.id;
         deleteButton.setAttribute("data-bs-toggle", "modal");
-        deleteButton.setAttribute("data-bs-target", `#${habitat.id}modal`);
+        deleteButton.setAttribute("data-bs-target", `#${service.id}modal`);
 
         let deleteModal = `
-            <div class="modal fade" id="${habitat.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
+            <div class="modal fade" id="${service.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModale">Suppression d'un habitat</h5>
+                            <h5 class="modal-title" id="deleteModale">Suppression d'un service</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Êtes-vous sûr de vouloir supprimer cet habitat ?</p>
+                            <p>Êtes-vous sûr de vouloir supprimer ce service ?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-primary btn deleteButton" data-bs-dismiss="modal" id="${habitat.id}">Confirmer la suppresion</button>
+                            <button type="button" class="btn-primary btn deleteButton" data-bs-dismiss="modal" id="${service.id}">Confirmer la suppresion</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
                     </div>
@@ -127,30 +130,30 @@ function displayHabitats(habitats) {
 
         let updateButton = document.createElement('button');
         updateButton.textContent = "Modifier";
-        updateButton.id = habitat.id;
+        updateButton.id = service.id;
         updateButton.setAttribute("data-bs-toggle", "modal");
-        updateButton.setAttribute("data-bs-target", `#${habitat.id}update`);
+        updateButton.setAttribute("data-bs-target", `#${service.id}update`);
 
         let updateModal = `
-            <div class="modal fade" id="${habitat.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
+            <div class="modal fade" id="${service.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModale">Modification d'un habitat</h5>
+                            <h5 class="modal-title" id="deleteModale">Modification d'un service</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form class="fond-primary primary login-form d-flex flex-column align-items-center">
-                                <label for="name">Nom de l'habitat</label>
-                                <input type="text" id="updatedName${habitat.id}" name="name">
+                                <label for="name">Nom du service</label>
+                                <input type="text" id="updatedName${service.id}" name="name">
                                 <label for="description">Description</label>
-                                <input type="text" id="updatedDescription${habitat.id}" name="description">
+                                <input type="text" id="updatedDescription${service.id}" name="description">
                                 <label for="image">Image</label>
-                                <input type="file" id="updatedImage${habitat.id}" name="image">
+                                <input type="file" id="updatedImage${service.id}" name="image">
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-primary btn updateButton" data-bs-dismiss="modal" id="${habitat.id}">Confirmer les modifications</button>
+                            <button type="button" class="btn-primary btn updateButton" data-bs-dismiss="modal" id="${service.id}">Confirmer les modifications</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
                     </div>
@@ -160,19 +163,18 @@ function displayHabitats(habitats) {
 
         modalList.innerHTML += updateModal;
 
-        habitatButtons.appendChild(updateButton);
-        habitatButtons.appendChild(deleteButton);
+        serviceButtons.appendChild(updateButton);
+        serviceButtons.appendChild(deleteButton);
 
-        habitatDiv.appendChild(habitatCard);
-        habitatDiv.appendChild(habitatButtons);
-        habitatDiv.classList.add('d-flex');
+        serviceDiv.appendChild(serviceCard);
+        serviceDiv.appendChild(serviceButtons);
+        serviceDiv.classList.add('d-flex');
 
-        habitatsContainer.appendChild(habitatDiv);
-    }
-    );
+        servicesContainer.append(serviceDiv); 
+    });
     document.querySelectorAll(".deleteButton").forEach(button => {
         button.addEventListener("click", function () {
-            deleteHabitat(this.id);
+            deleteService(this.id);
         });
     });
     document.querySelectorAll(".updateButton").forEach(button => {
@@ -182,7 +184,7 @@ function displayHabitats(habitats) {
     });
 }
 
-function deleteHabitat(id) {
+function deleteService(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -205,11 +207,11 @@ function deleteHabitat(id) {
         })
         .then(data => {
             if (Object.keys(data).length === 0) {
-                alert(`Habitat n°${id} supprimé avec succès`);
+                alert(`Service n°${id} supprimé avec succès`);
             } else {
                 alert(data.message);
             }
-            getHabitats();
+            getServices();
         })
         .catch(error => console.error('Erreur: ', error.message));
 }
@@ -220,6 +222,16 @@ function updateHabitat(id) {
     let updatedImage = document.getElementById(`updatedImage${id}`);
 
     let updatedImagePath = updatedImage.value.split("\\");
+
+    if (updatedName.value === "") {
+        updatedName = "";
+    }
+    if (updatedDescription.value === "") {
+        updatedDescription = "";
+    }
+    if (updatedImage.value === "") {
+        updatedImagePath = "";
+    }
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -250,13 +262,13 @@ function updateHabitat(id) {
         })
         .then(data => {
             if (Object.keys(data).length === 0) {
-                alert ('Habitat modifié avec succès');
+                alert ('Service modifié avec succès');
             } else {
                 alert(data.message);
             }
-            getHabitats();
+            getServices();
         })
         .catch(error => console.error("Erreur: ", error.message));
 }
 
-getHabitats();
+getServices();
