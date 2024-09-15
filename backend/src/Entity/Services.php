@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ServiceRepository;
+use App\Repository\ServicesRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ServiceRepository::class)]
-class Service
+#[ORM\Entity(repositoryClass: ServicesRepository::class)]
+class Services
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,7 +17,7 @@ class Service
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
@@ -34,9 +35,7 @@ class Service
 
     public function setName(string $name): static
     {
-        if (!empty($name)) {
-            $this->name = $name;
-        }
+        $this->name = $name;
 
         return $this;
     }
@@ -48,9 +47,7 @@ class Service
 
     public function setDescription(string $description): static
     {
-        if (!empty($description)) {
-            $this->description = $description;
-        }
+        $this->description = $description;
 
         return $this;
     }
@@ -62,9 +59,7 @@ class Service
 
     public function setImage(string $image): static
     {
-        if (!empty($image)) {
-            $this->image = $image;
-        }
+        $this->image = $image;
 
         return $this;
     }
