@@ -20,9 +20,20 @@ const getRouteByUrl = (url) => {
 };
 
 const LoadContentPage = async () => {
-    
+
     const path = window.location.pathname;
     const actualRoute = findRoute(path);
+    
+    let roles = [];
+
+    if (getRole()?.length) {
+        roles = getRole().split(",")
+    }
+
+    if (actualRoute.minAuth !== "" && !roles.includes(actualRoute.minAuth)) {
+        window.location.pathname = "/";
+    }
+
     const html = await fetch(actualRoute.pathHtml).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 

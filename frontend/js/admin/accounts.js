@@ -11,6 +11,7 @@ function newUser() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         "email": mailNewUser.value,
@@ -44,6 +45,7 @@ function newUser() {
 function displayUsers() {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'GET',

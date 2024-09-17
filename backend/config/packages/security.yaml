@@ -32,9 +32,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/accounts, roles: ADMIN }
+        - { path: ^/api/accounts, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/review/new, roles: PUBLIC_ACCESS }
+        - { path: ^/schedules/getSchedules, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

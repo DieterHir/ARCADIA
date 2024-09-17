@@ -123,16 +123,16 @@ function displayHabitats(habitats) {
             </div>
         `;
 
-        modalList.innerHTML += deleteModal;
+        habitatModalList.innerHTML += deleteModal;
 
         let updateButton = document.createElement('button');
         updateButton.textContent = "Modifier";
         updateButton.id = habitat.id;
         updateButton.setAttribute("data-bs-toggle", "modal");
-        updateButton.setAttribute("data-bs-target", `#${habitat.id}update`);
+        updateButton.setAttribute("data-bs-target", `#${habitat.id}updateHabitat`);
 
         let updateModal = `
-            <div class="modal fade" id="${habitat.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
+            <div class="modal fade" id="${habitat.id}updateHabitat" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -158,7 +158,7 @@ function displayHabitats(habitats) {
             </div>
         `;
 
-        modalList.innerHTML += updateModal;
+        habitatModalList.innerHTML += updateModal;
 
         habitatButtons.appendChild(updateButton);
         habitatButtons.appendChild(deleteButton);

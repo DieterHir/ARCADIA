@@ -9,7 +9,7 @@ let serviceName = document.getElementById("name");
 let serviceDescription = document.getElementById("description");
 let serviceImage = document.getElementById("image");
 
-let modalList = document.getElementById("modalList");
+let serviceModalList = document.getElementById("serviceModalList");
 
 let services = [];
 
@@ -126,7 +126,7 @@ function displayServices(services) {
             </div>
         `;
 
-        modalList.innerHTML += deleteModal;
+        serviceModalList.innerHTML += deleteModal;
 
         let updateButton = document.createElement('button');
         updateButton.textContent = "Modifier";
@@ -139,7 +139,7 @@ function displayServices(services) {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModale">Modification d'un service</h5>
+                            <h5 class="modal-title" id="updateModale">Modification d'un service</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -161,7 +161,7 @@ function displayServices(services) {
             </div>
         `;
 
-        modalList.innerHTML += updateModal;
+        serviceModalList.innerHTML += updateModal;
 
         serviceButtons.appendChild(updateButton);
         serviceButtons.appendChild(deleteButton);
