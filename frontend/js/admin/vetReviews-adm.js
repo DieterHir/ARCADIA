@@ -32,7 +32,6 @@ function displayReviews(data) {
     let reviewData = "";
 
     data.forEach(element => {
-        
         let dateLastVisit = element.date.date;
         let cleanDate = dateLastVisit.split('.')[0];
 

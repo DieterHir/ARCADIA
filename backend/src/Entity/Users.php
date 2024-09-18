@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\UsersRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée')]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,12 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $CreatedAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $UpdatedAt = null;
-
     #[ORM\Column(length: 255)]
     private ?string $apiToken = null;
-    
+
     /** @throws \Exception */
     public function __construct()
     {
@@ -92,7 +91,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        $this->roles = array_map(function ($role) {
+            return strpos($role, 'ROLE_') === 0 ? $role : 'ROLE_' . $role;
+        }, $roles);
 
         return $this;
     }
@@ -140,18 +141,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $CreatedAt): static
     {
         $this->CreatedAt = $CreatedAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->UpdatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $UpdatedAt): static
-    {
-        $this->UpdatedAt = $UpdatedAt;
 
         return $this;
     }

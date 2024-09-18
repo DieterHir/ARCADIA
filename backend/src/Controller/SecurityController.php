@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\Users;
+use App\Repository\UsersRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,29 +14,38 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api', name: 'app_api_')]
 class SecurityController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UserRepository $repository) {}
+    public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UsersRepository $repository) {}
 
     #[Route('/registration', name: 'registration', methods: 'POST')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, UsersRepository $repository, ValidatorInterface $validator): JsonResponse
     {
-        $user = $this->serializer->deserialize($request->getContent(), User::class, 'json');
-        $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
-        $user->setCreatedAt(new DateTimeImmutable());
+        $user = $this->serializer->deserialize($request->getContent(), Users::class, 'json');
+        $user->setEmail($user->getEmail());
 
-        $this->manager->persist($user);
-        $this->manager->flush();
-        return new JsonResponse(
-            ['user' => $user->getUserIdentifier(), 'apiToken' => $user->getApiToken(), 'roles' => $user->getRoles()],
-            Response::HTTP_CREATED
-        );
+        $errors = $validator->validate($user);
+
+        if (count($errors) > 0) {
+            return new JsonResponse(['message' => 'Email déjà utilisé'], Response::HTTP_UNAUTHORIZED);
+        } else {
+            $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
+            $user->setCreatedAt(new DateTimeImmutable());
+
+            $this->manager->persist($user);
+            $this->manager->flush();
+            return new JsonResponse(
+                ['user' => $user->getUserIdentifier(), 'apiToken' => $user->getApiToken(), 'roles' => $user->getRoles()],
+                Response::HTTP_CREATED
+            );
+        }
     }
 
     #[Route('/login', name: 'login', methods: 'POST')]
-    public function login(#[CurrentUser] ?User $user): JsonResponse
+    public function login(#[CurrentUser] ?Users $user): JsonResponse
     {
         if ($user === null) {
             return new JsonResponse(['message' => 'Missing credentials'], Response::HTTP_UNAUTHORIZED);
@@ -50,7 +59,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/accounts', name: 'accounts', methods: 'GET')]
-    public function display(UserRepository $repository): JsonResponse
+    public function display(UsersRepository $repository): JsonResponse
     {
         $users = $repository->findAll();
 
@@ -66,7 +75,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: 'DELETE')]
-    public function delete(int $id, UserRepository $repository): JsonResponse
+    public function delete(int $id, UsersRepository $repository): JsonResponse
     {
         print_r($id);
 

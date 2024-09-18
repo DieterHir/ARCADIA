@@ -20,7 +20,7 @@ class VetReviews
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $review = null;
 
-    #[ORM\ManyToOne(inversedBy: 'vetReviews')]
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'vetReviews')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Animal $animal = null;
 

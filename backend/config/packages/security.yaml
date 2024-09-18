@@ -8,7 +8,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Users
                 property: email
     firewalls:
         dev:
@@ -32,7 +32,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/accounts, roles: PUBLIC_ACCESS }
+        - { path: ^/api/accounts, roles: ['ROLE_ADMIN'] }
         - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/review/new, roles: PUBLIC_ACCESS }
         - { path: ^/schedules/getSchedules, roles: PUBLIC_ACCESS }

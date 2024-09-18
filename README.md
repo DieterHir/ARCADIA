@@ -6,8 +6,8 @@ Site vitrine pour un zoo
 
 Identifiants de test
 
-Admin : -admin@mail.com
-        -1234
+Admin : - admin@mail.com
+        - 1234
 
 Employé : - employee@mail.com
           - 5678  

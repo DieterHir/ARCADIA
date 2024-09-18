@@ -44,7 +44,6 @@ async function loadContent() {
 
 function addAnimal() {
     let animalImagePath = animalImage.value.split("\\");
-    console.log(habitatSelect.value);
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

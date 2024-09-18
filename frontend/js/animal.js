@@ -31,31 +31,30 @@ function displayInformations(id) {
             return response.json();
         })
         .then(animal => {
+            console.log(animal);
             image.innerHTML = `<img src="/images/${animal.image}" class="rounded" alt="photo de ${animal.name}"/>`;
             name.innerHTML = `<span class="secondary">Nom :</span> ${animal.name}`;
             species.innerHTML = `<span class="secondary">Race :</span> ${animal.species}`;
             age.innerHTML = `<span class="secondary">Age :</span> ${animal.age}`;
-            // if (animal.habitat !== null && animal.habitat !== "") {
-            //     habitat.innerHTML = `<span class="secondary">Habitat : </span>${animal.habitat}`;
-            // }
-            if (animal.state !== null && animal.stateReview !== null && animal.state !== "" && animal.stateReview !== "") {
+
+            if (animal.habitat) {
+                habitat.innerHTML = `<span class="secondary">Habitat : </span>${animal.habitat}`;
+            }
+
+            if (animal.state) {
                 state.innerHTML = `<h2 class="secondary">Etat:</h2> ${animal.state}`;
+            }
+
+            if (animal.stateReview) {
                 stateReview.innerHTML = `<h2 class="secondary">Commentaire:</h2> ${animal.stateReview}`;
             }
+
             if (animal.lastMeal !== null && animal.lastMealQty != null) {
                 lastMeal.innerHTML = `Dernier repas: ${animal.lastMealQty}g de ${animal.lastMeal}`;
             }
-            if (animal.lastVetVisit !== null && animal.lastVetVisit !== "") {
-                let dateLastVisit = animal.lastVetVisit.date;
-                let cleanDate = dateLastVisit.split('.')[0];
-
-                let [datePart, timePart] = cleanDate.split(' ');
-                let [year, month, day] = datePart.split('-');
-                let [hours, minutes] = timePart.split(':');
-
-                let formattedDate = `${day}/${month}/${year} - ${hours}:${minutes}`;
-
-                lastVetVisit.innerHTML = `<span class="secondary">Date de dernier passage de l'équipe vétérinaire :</span> ${formattedDate}`;
+            
+            if (animal.lastVetVisit) {
+                lastVetVisit.innerHTML = `<span class="secondary">Date de dernier passage de l'équipe vétérinaire :</span> ${animal.lastVetVisit}`;
             }
         })
         .catch(error => console.error("Erreur: ", error));

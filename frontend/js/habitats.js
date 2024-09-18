@@ -71,7 +71,7 @@ function displayHabitats(habitats) {
     habitatsContainer.innerHTML = "";
     habitats.forEach((habitat, index) => {
         let habitatCard = document.createElement('div');
-        habitatCard.classList.add('text-center', 'card-habitat', 'flex-grow-1');
+        habitatCard.classList.add('text-center', 'card-habitat', 'flex-grow-1', 'pb-4', 'pt-2');
         habitatCard.id = `habitat-${index}`;
 
         let habitatDiv = document.createElement('div');
@@ -96,6 +96,7 @@ function displayHabitats(habitats) {
 
         let habitatButtons = document.createElement('div');
         habitatButtons.classList.add('habitatButtons', 'ms-auto');
+        habitatButtons.setAttribute("data-show", "EMPLOYEE");
 
         let deleteButton = document.createElement('button');
         deleteButton.textContent = "Supprimer";

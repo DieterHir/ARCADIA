@@ -60,12 +60,11 @@ class AnimalController extends AbstractController
         foreach ($animals as $animal) {
             $lastReview = $vetReviewsRepository->findLatestReview($animal->getId());
 
-            if ($lastReview === null || $lastReview === "" || empty($lastReview))
+            if (!$lastReview)
             {
                 $animalsData[] = [
                     'name' => $animal->getName(),
                     'id' => $animal->getId(),
-                    // 'description' => $animal->getDescription(),
                     'image' => $animal->getImage(),
                     'species' => $animal->getSpecies(),
                     'age' => $animal->getAge(),
@@ -80,7 +79,6 @@ class AnimalController extends AbstractController
                 $animalsData[] = [
                     'name' => $animal->getName(),
                     'id' => $animal->getId(),
-                    // 'description' => $animal->getDescription(),
                     'image' => $animal->getImage(),
                     'species' => $animal->getSpecies(),
                     'age' => $animal->getAge(),
@@ -90,7 +88,7 @@ class AnimalController extends AbstractController
                     'state' => $animal->getState(),
                     'lastMeal' => $animal->getLastMealType(),
                     'lastMealQty' => $animal->getLastMealQty(),
-                    'lastVetVisit' => $lastReview->getDate(),
+                    'lastVetVisit' => $lastReview->getDate()->format('Y-m-d H:i:s'),
                     'vetReview' => $lastReview->getReview(),
                 ];
             }
@@ -131,9 +129,10 @@ class AnimalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'displayAnimal', methods: 'GET')]
-    public function displayAnimal(int $id, AnimalRepository $repository): JsonResponse
+    public function displayAnimal(int $id, AnimalRepository $repository, VetReviewsRepository $vetReviewsRepository): JsonResponse
     {
         $animal = $repository->findOneBy(['id' => $id]);
+        $lastReview = $vetReviewsRepository->findLatestReview($animal->getId());
 
         if (!$animal) {
             throw $this->createNotFoundException("Pas d'animal trouvé pour cet id");
@@ -146,10 +145,10 @@ class AnimalController extends AbstractController
             'species' => $animal->getSpecies(),
             'age' => $animal->getAge(),
             'state' => $animal->getState(),
-            // 'stateReview' => $animal->getVetReview(),
+            'stateReview' => $lastReview->getReview(),
             'lastMeal' => $animal->getLastMealType(),
             'lastMealQty' => $animal->getLastMealQty(),
-            // 'lastVetVisit' => $animal->getLastVetVisit(),
+            'lastVetVisit' => $lastReview->getDate()->format('Y-m-d H:i:s'),
         ];
 
         $habitatId = $animal->getHabitat();
@@ -177,8 +176,6 @@ class AnimalController extends AbstractController
             throw $this->createNotFoundException("Pas d'animal trouvé pour cet id");
         }
 
-        // $serializer->deserialize($request->getContent(), Animal::class, 'json', ['object_to_populate' => $animal]);
-        // $animal->setLastVetVisit(new DateTimeImmutable());
         $vetReview = $serializer->deserialize($data, VetReviews::class, 'json');
 
         $reviewData = json_decode($data, true)['review'] ?? null;

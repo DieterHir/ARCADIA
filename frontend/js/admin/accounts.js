@@ -33,9 +33,12 @@ function newUser() {
                 return response.json();
 
             } else {
-                alert("Erreur dans la création du compte");
+                if (response.status === 401) {
+                    alert("Email déjà utilisé");
+                } else {
+                    alert("Erreur dans la création du compte");
+                }
             }
-
         })
         .catch(error => console.log('error', error));
 
@@ -43,9 +46,11 @@ function newUser() {
 }
 
 function displayUsers() {
+    console.log(getRole());
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-AUTH-TOKEN", getToken());
+    myHeaders.append("Roles", getRole());
 
     let requestOptions = {
         method: 'GET',
@@ -86,7 +91,7 @@ function displayUsers() {
                         </div>
                     </div>
                     `;
-                
+
                 modalList.innerHTML += deleteModal;
 
                 userdata.appendChild(deleteButton);

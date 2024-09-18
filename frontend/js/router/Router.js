@@ -31,7 +31,8 @@ const LoadContentPage = async () => {
     }
 
     if (actualRoute.minAuth !== "" && !roles.includes(actualRoute.minAuth)) {
-        window.location.pathname = "/";
+        alert("Vous n'avez pas les autorisations nécessaires pour accéder à cette page.");
+        window.location.pathname = "/login";
     }
 
     const html = await fetch(actualRoute.pathHtml).then((data) => data.text());

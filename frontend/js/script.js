@@ -212,17 +212,17 @@ function showAndHideElementsForRoles() {
                 }
                 break;
             case 'EMPLOYEE':
-                if (!userConnected || roles.includes("VET")) {
+                if (!userConnected || roles.includes("ROLE_VET")) {
                     element.classList.add("d-none");
                 }
                 break;
             case 'VET':
-                if (!userConnected || !roles.includes("VET")) {
+                if (!userConnected || !roles.includes("ROLE_VET")) {
                     element.classList.add("d-none");
                 }
                 break;
             case 'ADMIN':
-                if (!userConnected || !roles.includes("ADMIN")) {
+                if (!userConnected || !roles.includes("ROLE_ADMIN")) {
                     element.classList.add("d-none");
                 }
                 break;

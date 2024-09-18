@@ -1,7 +1,7 @@
 let apiUrl = "http://localhost:8000/animal/";
 
 let animalsReviewCards = document.getElementById('animalsReviewCards');
-let modalList = document.getElementById('modalList');
+let vetModalList = document.getElementById('vetModalList');
 
 let animals = [];
 
@@ -32,6 +32,9 @@ function getAnimals() {
 
 function displayAnimals(animals) {
     animalsReviewCards.innerHTML = "";
+    if (animals.length < 1) {
+        animalsReviewCards.innerHTML = `Aucun animal trouvé`;
+    }
     animals.forEach(animal => {
         let animalDiv = document.createElement('div');
         animalDiv.classList.add('fond-secondary', 'primary', 'animalDiv', 'mb-4', 'd-flex', 'justify-content-stretch', 'flex-column', 'p-3');
@@ -50,14 +53,6 @@ function displayAnimals(animals) {
         reviewDiv.classList.add('fond-secondary', 'd-flex', 'mx-4', 'justify-content-center');
 
         if (animal.state !== null && animal.state !== "") {
-            let dateLastVisit = animal.lastVetVisit.date;
-            let cleanDate = dateLastVisit.split('.')[0];
-
-            let [datePart, timePart] = cleanDate.split(' ');
-            let [year, month, day] = datePart.split('-');
-            let [hours, minutes] = timePart.split(':');
-
-            let formattedDate = `${day}/${month}/${year} - ${hours}:${minutes}`;
 
             reviewDiv.classList.remove('justify-content-center');
             reviewDiv.classList.add('justify-content-between');
@@ -70,7 +65,7 @@ function displayAnimals(animals) {
                 <p class="secondary pt-2 pb-0">Dernier commentaire vétérinaire : </p>
                 <p>${animal.vetReview}</p>
                 <p class="secondary pt-2 pb-0">Date de dernier passage : </p>
-                <p>${formattedDate}</p>
+                <p>${animal.lastVetVisit}</p>
             </div>`;
 
             let arrowDiv = document.createElement('h1');
@@ -89,11 +84,11 @@ function displayAnimals(animals) {
             <label for="newReview" class="primary p-2">Nouveau commentaire vétérinaire</label>
             <input type="text" class="form-control" id="newReview${animal.id}" aria-describedby="newReview">
         </div>
-        <button type="button" class="button ms-5" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#${animal.id}update">Envoyer le nouvel avis</button>
+        <button type="button" class="button ms-5" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#${animal.id}ReviewUpdate">Envoyer le nouvel avis</button>
         `;
 
         let updateModal = `
-            <div class="modal fade" id="${animal.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
+            <div class="modal fade" id="${animal.id}ReviewUpdate" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content fond-primary">
                         <div class="modal-header secondary">

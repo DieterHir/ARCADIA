@@ -17,7 +17,7 @@
     <title></title>
 </head>
 
-<body>
+<body id="container">
     <header class="shadow-bot">
         <div class="container-fluid header flex-column align-items-center flex-sm-row">
             <a href="/" class="navbar-brand d-flex align-items-center">
@@ -52,7 +52,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/accounts" class="dropdown-item primary" data-show="ADMIN">Comptes</a></li>
                                 <li><a href="/reviews-adm" class="dropdown-item primary">Gestion des avis</a></li>
-                                <li><a href="/animals-adm" class="dropdown-item primary">Animaux</a></li>
+                                <li><a href="/animals-adm" class="dropdown-item primary" data-show="ADMIN">Animaux</a></li>
                                 <li><a href="/vetReviews-adm" class="dropdown-item primary" data-show="ADMIN">Récap des avis vét.</a></li>
                             </ul>
                         </li>
@@ -64,7 +64,7 @@
         </div>
     </header>
 
-    <main id="main-page">
+    <main id="main-page" class="d-flex flex-column">
 
     </main>
 

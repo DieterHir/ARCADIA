@@ -46,9 +46,6 @@ class Animal
     #[ORM\Column(nullable: true)]
     private ?int $lastMealQty = null;
 
-    // #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    // private ?\DateTimeInterface $lastVetVisit = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 

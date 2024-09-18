@@ -32,7 +32,7 @@ class SchedulesController extends AbstractController
                 'id' => $schedule->getId(),
             ];
         }
-        return new JsonResponse($schedulesData);
+        return new JsonResponse($schedulesData, Response::HTTP_OK);
     }
 
     #[Route('/{id}', name: 'updateSchedules', methods: 'PUT')]

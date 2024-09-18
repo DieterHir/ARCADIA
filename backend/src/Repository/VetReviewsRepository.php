@@ -21,14 +21,20 @@ class VetReviewsRepository extends ServiceEntityRepository
         parent::__construct($registry, VetReviews::class);
     }
 
-    public function findLatestReview($id): ?VetReviews
+    public function findLatestReview(int $animalId): ?VetReviews
     {
-        return $this->createQueryBuilder('v')
+        $result =  $this->createQueryBuilder('v')
             ->andWhere('v.animal = :animal')
-            ->setParameter('animal', $id)
+            ->setParameter('animal', $animalId)
             ->orderBy('v.date', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+
+        if ($result === null) {
+            error_log('Aucun avis vétérinaire trouvé pour cet animal');
+        }
+
+        return $result;
     }
 }
