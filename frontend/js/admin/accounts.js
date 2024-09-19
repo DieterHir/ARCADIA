@@ -50,7 +50,6 @@ function displayUsers() {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-AUTH-TOKEN", getToken());
-    myHeaders.append("Roles", getRole());
 
     let requestOptions = {
         method: 'GET',
@@ -112,6 +111,7 @@ displayUsers();
 function deleteUser(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'DELETE',

@@ -18,6 +18,7 @@ function addService() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         "name": serviceName.value,
@@ -99,6 +100,7 @@ function displayServices(services) {
 
         let serviceButtons = document.createElement('div');
         serviceButtons.classList.add('servicesButtons', 'ms-auto');
+        serviceButtons.setAttribute("data-show", "EMPLOYEE");
 
         let deleteButton = document.createElement('button');
         deleteButton.textContent = "Supprimer";
@@ -179,7 +181,7 @@ function displayServices(services) {
     });
     document.querySelectorAll(".updateButton").forEach(button => {
         button.addEventListener("click", function () {
-            updateHabitat(this.id);
+            updateService(this.id);
         });
     });
 }
@@ -187,6 +189,7 @@ function displayServices(services) {
 function deleteService(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'DELETE',
@@ -216,7 +219,7 @@ function deleteService(id) {
         .catch(error => console.error('Erreur: ', error.message));
 }
 
-function updateHabitat(id) {
+function updateService(id) {
     let updatedName = document.getElementById(`updatedName${id}`);
     let updatedDescription = document.getElementById(`updatedDescription${id}`);
     let updatedImage = document.getElementById(`updatedImage${id}`);
@@ -235,6 +238,7 @@ function updateHabitat(id) {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         'name': updatedName.value,

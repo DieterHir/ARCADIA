@@ -6,6 +6,7 @@ use App\Entity\Animal;
 use App\Entity\Habitat;
 use App\Entity\VetReviews;
 use App\Repository\AnimalRepository;
+use App\Repository\HabitatRepository;
 use App\Repository\VetReviewsRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -113,7 +114,7 @@ class AnimalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'update', methods: 'PUT')]
-    public function update(int $id, AnimalRepository $repository, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager): JsonResponse
+    public function update(int $id, AnimalRepository $repository, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager, HabitatRepository $habitatRepository): JsonResponse
     {
         $animal = $repository->findOneBy(['id' => $id]);
 
@@ -121,7 +122,21 @@ class AnimalController extends AbstractController
             throw $this->createNotFoundException("Pas d'animal trouvé pour cet id");
         }
 
-        $serializer->deserialize($request->getContent(), Animal::class, 'json', ['object_to_populate' => $animal]);
+        $requestData = json_decode($request->getContent(), true);
+        $habitatId = $requestData['habitat'] ?? null;
+
+        if ($habitatId) {
+            $habitat = $habitatRepository->find($habitatId);
+
+            if (!$habitat) {
+                return $this->json(['message' => 'Habitat non trouvé'], Response::HTTP_BAD_REQUEST);
+            }
+
+            $animal->setHabitat($habitat);
+        }
+
+        unset($requestData['habitat']);
+        $serializer->deserialize(json_encode($requestData), Animal::class, 'json', ['object_to_populate' => $animal]);
 
         $manager->flush();
 

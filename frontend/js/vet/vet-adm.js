@@ -130,6 +130,7 @@ function updateReview(id) {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         'review': newReview.value,

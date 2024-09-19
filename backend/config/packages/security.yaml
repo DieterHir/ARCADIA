@@ -32,10 +32,19 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/accounts, roles: ['ROLE_ADMIN'] }
+        - { path: ^/api/accounts, roles: ROLE_ADMIN }
+        - { path: ^/api/registration, roles: ROLE_ADMIN }
+        - { path: ^/api/\d+$, roles: ROLE_ADMIN }
         - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/review/new, roles: PUBLIC_ACCESS }
-        - { path: ^/schedules/getSchedules, roles: PUBLIC_ACCESS }
+        - { path: ^/schedules, roles: ROLE_ADMIN, methods: [PUT] }
+        - { path: ^/animal/\d+$,  roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: ^/animal/vet, roles: ROLE_VET }
+        - { path: ^/animal, roles: ROLE_ADMIN, methods: [PUT, DELETE, POST] }
+        - { path: ^/habitat, roles: ROLE_ADMIN, methods: [PUT,POST,DELETE] }
+        - { path: ^/review, roles: ROLE_EMPLOYEE, methods: [DELETE, PUT] }
+        - { path: ^/services, roles: ROLE_EMPLOYEE, methods: [DELETE, PUT, POST] }
+
 
 when@test:
     security:

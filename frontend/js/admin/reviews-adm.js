@@ -68,6 +68,7 @@ function displayReviews() {
 function deleteReview(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'DELETE',
@@ -100,6 +101,7 @@ function deleteReview(id) {
 function checkReview(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'PUT',

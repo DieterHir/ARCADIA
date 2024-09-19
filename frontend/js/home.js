@@ -37,7 +37,7 @@ function getReviews() {
 
 function displayReviews(number) {
     if (number === "" || number === undefined) {
-        reviewCommentary.textContent = reviews[0].message;
+        reviewCommentary.textContent = `« ${reviews[0].message} »`;
         reviewVisitor.textContent = reviews[0].visitor_name;
         reviewDate.textContent = new Date(reviews[0].createdAt.date).toLocaleDateString();
         reviewCommentary.data_id = 0;

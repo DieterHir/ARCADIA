@@ -226,9 +226,7 @@ class Animal
 
     public function setHabitat(?habitat $habitat): static
     {
-        if (!empty($habitat)) {
             $this->habitat = $habitat;
-        }
 
         return $this;
     }

@@ -16,6 +16,7 @@ function addHabitat() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         "name": habitatName.value,
@@ -186,6 +187,7 @@ function displayHabitats(habitats) {
 function deleteHabitat(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'DELETE',
@@ -224,6 +226,7 @@ function updateHabitat(id) {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         'name': updatedName.value,

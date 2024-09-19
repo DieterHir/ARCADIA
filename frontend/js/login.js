@@ -12,9 +12,7 @@ function login() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("X-AUTH-TOKEN", getToken());
-    // myHeaders.append("Acces-Control-Allow-Origin", "*");
-
+    
     let raw = JSON.stringify({
         "username" : email.value,
         "password" : password.value,

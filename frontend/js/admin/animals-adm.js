@@ -12,34 +12,22 @@ let animalHabitat = document.getElementById("habitat");
 let animalAge = document.getElementById("age");
 let animalSize = document.getElementById("size");
 let animalWeight = document.getElementById("weight");
-let habitatSelect = document.getElementById("habitatSelect");
 
 let animals = [];
 
-async function loadContent() {
-    try {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        let requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-        };
-
-        await fetch("http://localhost:8000/habitat/getHabitats", requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(habitat => {
-                    let habitatOption = document.createElement('option');
-                    habitatOption.value = habitat.id;
-                    habitatOption.textContent = habitat.name;
-
-                    habitatSelect.appendChild(habitatOption);
-                });
+function populateHabitatSelect(selectId) {
+    fetch("http://localhost:8000/habitat/getHabitats")
+        .then(response => response.json())
+        .then(data => {
+            let selectElement = document.getElementById(selectId);
+            data.forEach(habitat => {
+                let habitatOption = document.createElement('option');
+                habitatOption.value = habitat.id;
+                habitatOption.textContent = habitat.name;
+                selectElement.appendChild(habitatOption);
             });
-    } catch (error) {
-        console.error('Erreur fetch :', error);
-    }
+        })
+        .catch(error => console.error('Erreur fetch :', error));
 }
 
 function addAnimal() {
@@ -47,6 +35,7 @@ function addAnimal() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         "name": animalName.value,
@@ -82,6 +71,7 @@ function addAnimal() {
 function getAnimals() {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: "GET",
@@ -188,7 +178,7 @@ function displayAnimals(animals) {
                                 <label for="image">Image</label>
                                 <input type="file" id="updatedImage${animal.id}" name="image">
                                 <label for="habitat" id="updatedHabitat${animal.id}" name="habitat">
-                                <select class="form-select" id="updatedHabitatSelect${animal.id}" aria-label="habitat select">
+                                <select class="form-select" id="updateHabitatSelect${animal.id}" aria-label="habitat select">
                                     <Option select>Selectionnez un habitat</Option>
                                 </select>
                             </form>
@@ -215,6 +205,7 @@ function displayAnimals(animals) {
         }
 
         row.append(animalCard);
+        populateHabitatSelect(`updateHabitatSelect${animal.id}`);
     });
 
     document.querySelectorAll(".deleteButton").forEach(button => {
@@ -234,6 +225,7 @@ function displayAnimals(animals) {
 function deleteAnimal(id) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let requestOptions = {
         method: 'DELETE',
@@ -270,11 +262,13 @@ function updateAnimal(id) {
     let updatedSize = document.getElementById(`updatedSize${id}`);
     let updatedWeight = document.getElementById(`updatedWeight${id}`);
     let updatedImage = document.getElementById(`updatedImage${id}`);
+    let habitatSelect = document.getElementById(`updateHabitatSelect${id}`);
 
     let updatedImagePath = updatedImage.value.split("\\");
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
         'name': updatedName.value,
@@ -283,6 +277,7 @@ function updateAnimal(id) {
         'size': parseInt(updatedSize.value, 10),
         'weight': parseInt(updatedWeight.value, 10),
         'image': updatedImagePath[updatedImagePath.length -1],
+        'habitat': parseInt(habitatSelect.value, 10)
     });
 
     let requestOptions = {
@@ -305,7 +300,7 @@ function updateAnimal(id) {
         })
         .then(data => {
             if (Object.keys(data).length === 0) {
-                alert ('Habitat modifié avec succès');
+                alert ('Animal modifié avec succès');
             } else {
                 alert(data.message);
             }
@@ -314,5 +309,5 @@ function updateAnimal(id) {
         .catch(error => console.error("Erreur: ", error.message));
 }
 
-loadContent();
+populateHabitatSelect(`habitatSelect`);
 getAnimals();
