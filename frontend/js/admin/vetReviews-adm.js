@@ -41,7 +41,7 @@ function displayReviews(data) {
 
         let formattedDate = `${day}/${month}/${year} - ${hours}:${minutes}`;
 
-        reviewData +=  `<tr class="row py-3">
+        reviewData += `<tr class="row py-3">
                         <td class="col-3">${element.name}</td>
                         <td class="col-3">${element.review}</td>
                         <td class="col-3">${formattedDate}</td>
@@ -60,6 +60,10 @@ sortInput.forEach(radio => {
     radio.addEventListener('change', handleRadioSelect);
 })
 
+function parseDate(dateString) {
+    return new Date(dateString.date.replace(' ', 'T'));
+}
+
 function sortReviews(choice) {
     switch (choice) {
         case 'nameUp':
@@ -67,15 +71,36 @@ function sortReviews(choice) {
                 return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
             });
             break;
-        
+
         case 'nameDown':
             reviews.sort((a, b) => {
                 return b.name.toLowerCase().localeCompare(a.name.toLowerCase());
+            });
+            break;
+
+        case 'dateUp':
+            reviews.sort((a, b) => {
+                return parseDate(a.date) - parseDate(b.date);
+            });
+            break;
+
+        case 'dateDown':
+            reviews.sort((a, b) => {
+                return parseDate(b.date) - parseDate(a.date);
             });
             break;
     }
     reviewsContainer.innerHTML = "";
     displayReviews(reviews);
 }
+
+searchInput.addEventListener("input", (e) => {
+    let currentValue = e.target.value;
+    
+    let filteredReviews = reviews.filter(element => element.name.toLowerCase().includes(currentValue.toLowerCase()));
+
+    reviewsContainer.innerHTML = "";
+    displayReviews(filteredReviews);
+})
 
 getReviews();

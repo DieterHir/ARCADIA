@@ -61,8 +61,7 @@ class AnimalController extends AbstractController
         foreach ($animals as $animal) {
             $lastReview = $vetReviewsRepository->findLatestReview($animal->getId());
 
-            if (!$lastReview)
-            {
+            if (!$lastReview) {
                 $animalsData[] = [
                     'name' => $animal->getName(),
                     'id' => $animal->getId(),
@@ -153,18 +152,36 @@ class AnimalController extends AbstractController
             throw $this->createNotFoundException("Pas d'animal trouvé pour cet id");
         }
 
-        $animalData = [
-            'id' => $animal->getId(),
-            'name' => $animal->getName(),
-            'image' => $animal->getImage(),
-            'species' => $animal->getSpecies(),
-            'age' => $animal->getAge(),
-            'state' => $animal->getState(),
-            'stateReview' => $lastReview->getReview(),
-            'lastMeal' => $animal->getLastMealType(),
-            'lastMealQty' => $animal->getLastMealQty(),
-            'lastVetVisit' => $lastReview->getDate()->format('Y-m-d H:i:s'),
-        ];
+        if ($lastReview) {
+            $animalData = [
+                'id' => $animal->getId(),
+                'name' => $animal->getName(),
+                'image' => $animal->getImage(),
+                'species' => $animal->getSpecies(),
+                'age' => $animal->getAge(),
+                'size' => $animal->getSize(),
+                'weight' => $animal->getWeight(),
+                'state' => $animal->getState(),
+                'stateReview' => $lastReview->getReview(),
+                'lastMeal' => $animal->getLastMealType(),
+                'lastMealQty' => $animal->getLastMealQty(),
+                'lastVetVisit' => $lastReview->getDate()->format('Y-m-d H:i:s'),
+            ];
+        } else {
+            $animalData = [
+                'id' => $animal->getId(),
+                'name' => $animal->getName(),
+                'image' => $animal->getImage(),
+                'species' => $animal->getSpecies(),
+                'age' => $animal->getAge(),
+                'size' => $animal->getSize(),
+                'weight' => $animal->getWeight(),
+                'state' => $animal->getState(),
+                'lastMeal' => $animal->getLastMealType(),
+                'lastMealQty' => $animal->getLastMealQty(),
+            ];
+        }
+
 
         $habitatId = $animal->getHabitat();
 

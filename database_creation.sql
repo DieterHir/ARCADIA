@@ -12,9 +12,9 @@ CREATE TABLE users
     api_token VARCHAR(255)
 );
 
-INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('admin@mail.com', '["ADMIN","EMPLOYEE"]', '$2y$13$kI94CpbjQrf4zKxLeB2hyuM0EQfLSudxri2hPsEBITQ8L2JmLGh9m', NOW(), '3d0b70645e24bd7d32cdbb8ca37c538448b6d035');
-INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('employee@mail.com', '["EMPLOYEE"]', '$2y$13$jP33.IaSOPt8WcZgXsxi0ejIDJH3WIg3Cv8cU3cB0aeKcpkd.S8xK', NOW(), 'b915211215d420ef14931d02b45b276e606a31fc');
-INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('vet@mail.com', '["VET"]', '$2y$13$C1oeBLmg3DKSjqBgBsTNpOdijYLunEtPHt3yI1xLRTySfOANuVX3O', NOW(), '4826e21d1f6e7e4977a44e60399e89a6532514e7');
+INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('admin@mail.com', '["ROLE_ADMIN","ROLE_EMPLOYEE"]', '$2y$13$kI94CpbjQrf4zKxLeB2hyuM0EQfLSudxri2hPsEBITQ8L2JmLGh9m', NOW(), '3d0b70645e24bd7d32cdbb8ca37c538448b6d035');
+INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('employee@mail.com', '["ROLE_EMPLOYEE"]', '$2y$13$jP33.IaSOPt8WcZgXsxi0ejIDJH3WIg3Cv8cU3cB0aeKcpkd.S8xK', NOW(), 'b915211215d420ef14931d02b45b276e606a31fc');
+INSERT INTO users (email, roles, password, created_at, api_token) VALUES ('vet@mail.com', '["ROLE_VET"]', '$2y$13$C1oeBLmg3DKSjqBgBsTNpOdijYLunEtPHt3yI1xLRTySfOANuVX3O', NOW(), '4826e21d1f6e7e4977a44e60399e89a6532514e7');
 
 CREATE TABLE habitat
 (

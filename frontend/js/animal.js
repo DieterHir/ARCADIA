@@ -12,6 +12,8 @@ let state = document.getElementById('state');
 let stateReview = document.getElementById('stateReview');
 let lastMeal = document.getElementById('lastMeal');
 let lastVetVisit = document.getElementById('lastVetVisit');
+let size = document.getElementById('size');
+let weight = document.getElementById('weight');
 
 function displayInformations(id) {
     let myHeaders = new Headers();
@@ -36,6 +38,8 @@ function displayInformations(id) {
             name.innerHTML = `<span class="secondary">Nom :</span> ${animal.name}`;
             species.innerHTML = `<span class="secondary">Race :</span> ${animal.species}`;
             age.innerHTML = `<span class="secondary">Age :</span> ${animal.age}`;
+            size.innerHTML = `<span class="secondary">Taille:</span> ${animal.size} cm`;
+            weight.innerHTML = `<span class="secondary">Poids:</span> ${animal.weight} kg`;
 
             if (animal.habitat) {
                 habitat.innerHTML = `<span class="secondary">Habitat : </span>${animal.habitat}`;
