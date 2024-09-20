@@ -8,7 +8,12 @@ btn_login.addEventListener("click", login);
 
 function login() {
 
-    console.log(password.value)
+    if (!validateEmail(email.value)) {
+        email.classList.add("is-invalid");
+        return;
+    } else {
+        email.classList.remove("is-invalid");
+    }
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -44,4 +49,9 @@ function login() {
             window.location.replace("/");
         })
         .catch(error => console.log('error', error));
+}
+
+function validateEmail(email) {
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }

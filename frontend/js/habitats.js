@@ -76,6 +76,7 @@ function displayHabitats(habitats) {
         habitatCard.id = `habitat-${index}`;
 
         let habitatDiv = document.createElement('div');
+        habitatDiv.classList.add('flex-grow-1');
 
         if (index % 2 == 0) {
             habitatDiv.classList.add('fond-secondary');

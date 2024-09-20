@@ -18,7 +18,6 @@ function displayReviews() {
             reviewsToCheck.textContent = "";
             reviewsChecked.textContent = "";
             data.forEach(review => {
-                console.log(review.state)
                 if (review.state === "toCheck") {
                     let reviewdata = document.createElement("li");
                     reviewdata.textContent = review.message + " | " + review.visitor_name + " | " + review.created_at;

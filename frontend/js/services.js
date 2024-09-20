@@ -76,6 +76,7 @@ function displayServices(services) {
 
     services.forEach((service, index) => {
         let serviceDiv = document.createElement('div');
+        serviceDiv.classList.add('d-flex');
 
         let serviceCard = document.createElement('div');
         serviceCard.classList.add('text-center', 'flex-grow-1');
@@ -134,10 +135,10 @@ function displayServices(services) {
         updateButton.textContent = "Modifier";
         updateButton.id = service.id;
         updateButton.setAttribute("data-bs-toggle", "modal");
-        updateButton.setAttribute("data-bs-target", `#${service.id}update`);
+        updateButton.setAttribute("data-bs-target", `#${service.id}ServiceUpdate`);
 
         let updateModal = `
-            <div class="modal fade" id="${service.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
+            <div class="modal fade" id="${service.id}ServiceUpdate" tabindex="-1" aria-labelledby="updateServiceModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -170,7 +171,7 @@ function displayServices(services) {
 
         serviceDiv.appendChild(serviceCard);
         serviceDiv.appendChild(serviceButtons);
-        serviceDiv.classList.add('d-flex');
+
 
         servicesContainer.append(serviceDiv); 
     });

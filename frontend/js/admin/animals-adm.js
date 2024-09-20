@@ -62,8 +62,21 @@ function addAnimal() {
                 alert("Erreur lors de l'ajout de l'animal.");
             }
         })
+        // .then(data => {
+        //     fetch(apiUrl + "addAnimalToMongo", {
+        //         method: 'POST',
+        //         headers: myHeaders,
+        //         body: JSON.stringify({ name: animalName.value, visitCount: 0 })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(data.message);
+        //         })
+        //         .catch(error => { console.error('Error: ', error); });
+        // })
         .then(data => {
-            location.reload();
+            animalsContainer.innerHTML = "";
+            getAnimals();
         })
         .catch(error => console.log('error', error));
 }
@@ -209,13 +222,13 @@ function displayAnimals(animals) {
     });
 
     document.querySelectorAll(".deleteButton").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             deleteAnimal(this.id);
         });
     });
 
     document.querySelectorAll(".updateButton").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             updateAnimal(this.id);
         });
     });
@@ -250,7 +263,8 @@ function deleteAnimal(id) {
             } else {
                 alert(data.message);
             }
-            location.reload();
+            animalsContainer.innerHTML = "";
+            getAnimals();
         })
         .catch(error => console.error('Erreur: ', error.message));
 }
@@ -276,7 +290,7 @@ function updateAnimal(id) {
         'age': parseInt(updatedAge.value, 10),
         'size': parseInt(updatedSize.value, 10),
         'weight': parseInt(updatedWeight.value, 10),
-        'image': updatedImagePath[updatedImagePath.length -1],
+        'image': updatedImagePath[updatedImagePath.length - 1],
         'habitat': parseInt(habitatSelect.value, 10)
     });
 
@@ -300,11 +314,12 @@ function updateAnimal(id) {
         })
         .then(data => {
             if (Object.keys(data).length === 0) {
-                alert ('Animal modifié avec succès');
+                alert('Animal modifié avec succès');
             } else {
                 alert(data.message);
             }
-            location.reload();
+            animalsContainer.innerHTML = "";
+            getAnimals();
         })
         .catch(error => console.error("Erreur: ", error.message));
 }

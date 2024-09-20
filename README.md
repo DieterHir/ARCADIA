@@ -42,6 +42,15 @@ Pour que votre application puisse accéder à cette base et aux données, n'oubl
 
                 ·enfin, "my_database" correspond au nom que vous avez donné à la base de donnée créée pour votre application. Si vous avez suivi les étapes précédentes pour créer la base de données en copiant le fichier fourni, vous devriez remplacer ceci par "arcadia".
 
+        Pour l'envoi des mails depuis le formulaire de contact, modifier la ligne : MAILER_DSN=smtp://your_smtp_server
+
+        Il vous suffit de remplacer le "your_smtp_server" par les informations de votre boîte mail (pour une boîte gmail, il faudra par exemple entrer les informations sous la forme "votremail:motdepasse@smtp.gmail.com")
+
+        
         Et voilà, vous devriez pouvoir accéder à l'application et aux données de la base sans problème !
         Pour accéder au site en local, il vous suffit maintenant d'accéder à votre moteur de recherche, et d'y chercher "localhost".
                                 Bonne découverte !
+
+# Pour la fonction qui permet d'envoyer un mail avec le formulaire de contact
+
+        Il semblerait qu'il y ai un problème avec la façon dont le mailer s'occupe de cette tâche. Je n'ai pas encore trouvé de solution pour que les mails s'envoient sans être mis en file d'attente, mais pour envoyer ceux qui sont en file, vous pouvez utiliser la commande "php bin/console messenger:consume async". Cela devrait normalement permettre l'envoi de tous les mails en attente.

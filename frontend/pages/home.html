@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<div id="présentation" class="fond-secondary py-4">
+<div id="présentation" class="fond-secondary py-4 shadowed-next-element">
     <div class="text-center">
         <h2 class="h1-font secondary pb-2">Découvrez un zoo vert et responsable</h2>
         <p class="text-font primary px-5">Situé à quelques pas de la mythique forêt de Brocéliande, notre zoo, très
@@ -16,15 +16,14 @@
             dizaines d'espèces hautes en couleurs.</p>
     </div>
     <div class="presentation-card text-center">
-        <div>
-            <i class="bi bi-arrow-left primary me-2" id="previous-habitat"></i>
-            <img src="../images/pandaroux.jpg" alt="Panda roux">
-            <i class="bi bi-arrow-right primary ms-2" id="next-habitat"></i>
+        <div id="imgHabitat">
+            <i id="previousHabitat" class="bi bi-arrow-left primary"></i>
+            <img id="habitatImage" alt="image de l'habitat sélectionné">
+            <i id="nextHabitat" class="bi bi-arrow-right primary"></i>
         </div>
-        <h3 class="secondary h2-font mt-2">Les plaines d'Asie</h3>
-        <p class="primary">Pandas et pandas roux, antilopes, tigres, loutres...</p>
-        <a href="/habitats">
-            <button class="button" class="text-center">Découvrir nos habitats</button>
+        <h3 id="habitatName" class="secondary h2-font mt-2"></h3>
+        <p id="habitatDescription" class="primary"></p>
+        <a id="habitatButton" class="button" style="color: black; text-decoration: none;">
         </a>
     </div>
 </div>
@@ -35,33 +34,37 @@
     </div>
     <div class="presentation-card text-center">
         <div>
-            <i class="bi bi-arrow-left primary me-2" id="previous-habitat"></i>
-            <img src="../images/restaurant.jpg" alt="Restaurant chaleureux et lumineux">
-            <i class="bi bi-arrow-right primary ms-2" id="next-habitat"></i>
+            <i class="bi bi-arrow-left primary me-2" id="previousService"></i>
+            <img id="serviceImage" alt="Restaurant chaleureux et lumineux">
+            <i class="bi bi-arrow-right primary ms-2" id="nextService"></i>
         </div>
-        <h3 class="secondary h2-font mt-2">Restauration pour tous les goûts</h3>
-        <p class="primary">Menus pour petites et grandes faims, sucreries à déguster pendant votre visite...</p>
+        <h3 id="serviceName" class="secondary h2-font mt-2"></h3>
+        <p id="serviceDescription" class="primary"></p>
         <a href="/services">
             <button class="button" class="text-center">Découvrir nos services</button>
         </a>
     </div>
 </div>
 
-<div id="apercu" class="fond-secondary py-4 text-center">
+<div id="apercu" class="fond-secondary py-4 text-center shadowed-next-element shadow-bot">
     <h2 class="h1-font secondary pb-2">Un aperçu de nos pensionnaires</h2>
     <div class="presentation-card">
-        <div>
-            <i class="bi bi-arrow-left primary me-2" id="previous-habitat"></i>
-            <img src="../images/loutre.jpg" alt="Gros plan sur une loutre brune">
-            <i class="bi bi-arrow-right primary ms-2" id="next-habitat"></i>
+        <div id="animalDiv">
+            <i class="bi bi-arrow-left primary me-2" id="previousAnimal"></i>
+            <img id="animalImage" alt="Gros plan sur une loutre brune">
+            <i class="bi bi-arrow-right primary ms-2" id="nextAnimal"></i>
         </div>
+        <a id="animalButton">
+            <button class="button" id="animalButton">Voir plus</button>
+        </a>
     </div>
 </div>
 
 
-<div class="fond-foret py-4 text-center d-flex align-items-center justify-content-center">
+<div class="fond-foret py-4 text-center d-flex align-items-center justify-content-center shadow-bot">
     <div id="review" class="fond-tertiary primary d-flex flex-column align-items-center">
-        <div id="commentary" class="button-font flex-grow-1 d-flex justify-content-center align-items-center" style="font-size: 24px">${texte de l'avis}</div>
+        <div id="commentary" class="button-font flex-grow-1 d-flex justify-content-center align-items-center"
+            style="font-size: 24px">${texte de l'avis}</div>
         <div class="h2-font d-flex justify-content-center">
             <p id="visitor"></p>
             <p class="px-4">-</p>

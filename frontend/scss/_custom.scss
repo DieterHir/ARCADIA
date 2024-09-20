@@ -58,6 +58,17 @@ main {
     }
 }
 
+.shadow-bot {
+    box-shadow: 0 20px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+// .shadowed-next-element {
+//     position: relative;
+//     z-index: 0;
+// }
+
 #formNewUser {
     input {
         width: 50%;
@@ -239,6 +250,15 @@ p {
 #review button {
     background-color: transparent;
     border: none;
+}
+
+#imgHabitat button {
+    background-color: transparent;
+    border: none;
+}
+
+.dark {
+    color: black;
 }
 
 .miniaAnimalCard {

@@ -46,7 +46,6 @@ function newUser() {
 }
 
 function displayUsers() {
-    console.log(getRole());
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-AUTH-TOKEN", getToken());

@@ -1,0 +1,19 @@
+# doctrine_mongodb:
+#     connections:
+#         default:
+#             server: '%env(MONGODB_URL)%'
+#         default_database: '%env(MONGODB_DB)%'
+
+#     document_managers:
+#         default:
+#           auto_mapping: true
+#           mappings:
+#             App\Document:
+#               is_bundle: false
+#               type: annotation
+#               dir: '%kernel.project_dir%/src/Document'
+#               prefix: 'App\Document'
+#               alias: Document
+#             connection: default
+#             default_document_repository_class: 'Doctrine\ODM\MongoDB\Repository\DocumentRepository'
+#             auto_mapping: true
