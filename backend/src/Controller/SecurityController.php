@@ -22,15 +22,20 @@ class SecurityController extends AbstractController
     public function __construct(private EntityManagerInterface $manager, private SerializerInterface $serializer, private UsersRepository $repository) {}
 
     #[Route('/registration', name: 'registration', methods: 'POST')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, UsersRepository $repository, ValidatorInterface $validator): JsonResponse
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
         $user = $this->serializer->deserialize($request->getContent(), Users::class, 'json');
-        $user->setEmail($user->getEmail());
 
         $errors = $validator->validate($user);
 
         if (count($errors) > 0) {
-            return new JsonResponse(['message' => 'Email déjà utilisé'], Response::HTTP_UNAUTHORIZED);
+            $errorMessages = [];
+
+            foreach ($errors as $error) {
+                $errorMessages[] += $error->getMessage();
+                }
+
+            return new JsonResponse(['message' => $errorMessages], Response::HTTP_BAD_REQUEST);
         } else {
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $user->setCreatedAt(new DateTimeImmutable());
@@ -65,10 +70,12 @@ class SecurityController extends AbstractController
 
         $usersData = [];
         foreach ($users as $user) {
-            $usersData[] = [
-                'email' => $user->getEmail(),
-                'id' => $user->getId(),
-            ];
+            if (!in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+                $usersData[] = [
+                    'email' => $user->getEmail(),
+                    'id' => $user->getId(),
+                ];
+            }
         }
 
         return new JsonResponse($usersData);

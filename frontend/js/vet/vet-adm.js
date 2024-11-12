@@ -5,6 +5,20 @@ let vetModalList = document.getElementById('vetModalList');
 
 let animals = [];
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function getAnimals() {
 
     animals = [];
@@ -133,9 +147,9 @@ function updateReview(id) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        'review': newReview.value,
+        'review': sanitize(newReview.value),
         'animal': {
-            'state': newState.value,
+            'state': sanitize(newState.value),
         },
     });
 

@@ -6,71 +6,88 @@ let passwordNewUser = document.getElementById("password");
 
 btn_create.addEventListener("click", newUser);
 
+function sanitize(string) {
+  let map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "/": "&#x2F;",
+  };
+
+  let reg = /[&<>"'/`]/gi;
+  return string.replace(reg, (match) => map[match]);
+}
+
 function newUser() {
-    let roleInput = document.querySelector('input[name="role"]:checked');
+  let roleInput = document.querySelector('input[name="role"]:checked');
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", getToken());
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
-    let raw = JSON.stringify({
-        "email": mailNewUser.value,
-        "password": passwordNewUser.value,
-        "roles": [roleInput.value],
-    });
+  let raw = JSON.stringify({
+    email: sanitize(mailNewUser.value),
+    password: sanitize(passwordNewUser.value),
+    roles: [roleInput.value],
+  });
 
-    let requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-    };
+  let requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
-    fetch(apiUrl + "registration", requestOptions)
-        .then(response => {
-            if (response.ok) {
-                alert("Bravo, le compte associé à l'email : " + mailNewUser.value + " a bien été créé.");
-                return response.json();
+  fetch(apiUrl + "registration", requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        alert(
+          "Bravo, le compte associé à l'email : " +
+            mailNewUser.value +
+            " a bien été créé."
+        );
+        return response.json();
+      } else {
+        if (response.status === 401) {
+          alert("Email déjà utilisé");
+        } else {
+          alert("Erreur dans la création du compte");
+        }
+      }
+    })
+    .catch((error) => console.log("error", error));
 
-            } else {
-                if (response.status === 401) {
-                    alert("Email déjà utilisé");
-                } else {
-                    alert("Erreur dans la création du compte");
-                }
-            }
-        })
-        .catch(error => console.log('error', error));
-
-    displayUsers();
+  displayUsers();
 }
 
 function displayUsers() {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", getToken());
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
-    let requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-    };
+  let requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
 
-    fetch(apiUrl + "accounts", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            let userList = document.getElementById("userList");
-            userList.textContent = "";
-            data.forEach(user => {
-                let userdata = document.createElement("li");
-                userdata.textContent = user.email;
+  fetch(apiUrl + "accounts", requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      let userList = document.getElementById("userList");
+      userList.textContent = "";
+      data.forEach((user) => {
+        let userdata = document.createElement("li");
+        userdata.innerHTML = user.email;
 
-                let deleteButton = document.createElement("button");
-                deleteButton.textContent = "Supprimer";
-                deleteButton.classList.add("btn", "btn-primary");
-                deleteButton.setAttribute("data-bs-toggle", "modal");
-                deleteButton.setAttribute("data-bs-target", `#${user.id}modal`);
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Supprimer";
+        deleteButton.classList.add("btn", "btn-primary");
+        deleteButton.setAttribute("data-bs-toggle", "modal");
+        deleteButton.setAttribute("data-bs-target", `#${user.id}modal`);
 
-                let deleteModal = `
+        let deleteModal = `
                     <div class="modal fade" id="${user.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -90,52 +107,52 @@ function displayUsers() {
                     </div>
                     `;
 
-                modalList.innerHTML += deleteModal;
+        modalList.innerHTML += deleteModal;
 
-                userdata.appendChild(deleteButton);
+        userdata.appendChild(deleteButton);
 
-                userList.appendChild(userdata);
-            });
-            document.querySelectorAll(".deleteButton").forEach(button => {
-                button.addEventListener("click", function () {
-                    deleteUser(this.id)
-                });
-            });
-        })
-        .catch(error => console.error("Erreur: ", error));
+        userList.appendChild(userdata);
+      });
+      document.querySelectorAll(".deleteButton").forEach((button) => {
+        button.addEventListener("click", function () {
+          deleteUser(this.id);
+        });
+      });
+    })
+    .catch((error) => console.error("Erreur: ", error));
 }
 
 displayUsers();
 
 function deleteUser(id) {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("X-AUTH-TOKEN", getToken());
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-AUTH-TOKEN", getToken());
 
-    let requestOptions = {
-        method: 'DELETE',
-        headers: myHeaders,
-    };
+  let requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+  };
 
-    fetch(apiUrl + `${id}`, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Echec de la suppression');
-            }
+  fetch(apiUrl + `${id}`, requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Echec de la suppression");
+      }
 
-            if (response.status === 204) {
-                return {};
-            }
+      if (response.status === 204) {
+        return {};
+      }
 
-            return response.json();
-        })
-        .then(data => {
-            if (Object.keys(data).length === 0) {
-                alert('Utilisateur n°' + `${id}` + ' supprimé avec succès.');
-            } else {
-                alert(data.message);
-            }
-            displayUsers();
-        })
-        .catch(error => console.error("Erreur: ", error.message));
+      return response.json();
+    })
+    .then((data) => {
+      if (Object.keys(data).length === 0) {
+        alert("Utilisateur n°" + `${id}` + " supprimé avec succès.");
+      } else {
+        alert(data.message);
+      }
+      displayUsers();
+    })
+    .catch((error) => console.error("Erreur: ", error.message));
 }

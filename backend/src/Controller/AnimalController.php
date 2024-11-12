@@ -52,26 +52,6 @@ class AnimalController extends AbstractController
         );
     }
 
-    // #[Route('/addAnimalToMongo', name: 'addAnimalToMongo', methods: 'POST')]
-    // public function addAnimalToMongo(Request $request, DocumentManager $dm): JsonResponse
-    // {
-    //     $data = json_decode($request->getContent(), true);
-    //     $name = $data['name'] ?? null;
-
-    //     if (!$name) {
-    //         return new JsonResponse(['error' => 'Le nom est nécessaire'], Response::HTTP_BAD_REQUEST);
-    //     }
-
-    //     $mongoAnimal = [
-    //         'name' => $name,
-    //         'visitCount' => 0
-    //     ];
-
-    //     $dm->getDocumentCollection(AnimalVisit::class)->insertOne($mongoAnimal);
-
-    //     return new JsonResponse($mongoAnimal);
-    // }
-
     #[Route('/getAnimals', name: 'getAnimals', methods: 'GET')]
     public function getAnimals(AnimalRepository $repository, VetReviewsRepository $vetReviewsRepository): JsonResponse
     {
@@ -129,7 +109,7 @@ class AnimalController extends AbstractController
         $this->manager->remove($animal);
         $this->manager->flush();
 
-        return $this->json(['message' => "Animal supprimée"], Response::HTTP_NO_CONTENT);
+        return $this->json(['message' => "Animal supprimé"], Response::HTTP_NO_CONTENT);
     }
 
     #[Route('/{id}', name: 'update', methods: 'PUT')]

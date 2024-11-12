@@ -15,6 +15,20 @@ let animalWeight = document.getElementById("weight");
 
 let animals = [];
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function populateHabitatSelect(selectId) {
     fetch("http://localhost:8000/habitat/getHabitats")
         .then(response => response.json())
@@ -38,9 +52,9 @@ function addAnimal() {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        "name": animalName.value,
-        "species": animalSpecies.value,
-        "image": animalImagePath[animalImagePath.length - 1],
+        "name": sanitize(animalName.value),
+        "species": sanitize(animalSpecies.value),
+        "image": sanitize(animalImagePath[animalImagePath.length - 1]),
         "age": parseInt(animalAge.value, 10),
         "size": parseInt(animalSize.value, 10),
         "weight": parseInt(animalWeight.value, 10),
@@ -62,18 +76,6 @@ function addAnimal() {
                 alert("Erreur lors de l'ajout de l'animal.");
             }
         })
-        // .then(data => {
-        //     fetch(apiUrl + "addAnimalToMongo", {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         body: JSON.stringify({ name: animalName.value, visitCount: 0 })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log(data.message);
-        //         })
-        //         .catch(error => { console.error('Error: ', error); });
-        // })
         .then(data => {
             animalsContainer.innerHTML = "";
             getAnimals();
@@ -82,6 +84,8 @@ function addAnimal() {
 }
 
 function getAnimals() {
+    animals = [];
+    
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("X-AUTH-TOKEN", getToken());
@@ -99,6 +103,7 @@ function getAnimals() {
             });
         })
         .then(data => {
+            console.log(animals);
             displayAnimals(animals);
         })
         .catch(error => console.error("Erreur: ", error));
@@ -106,6 +111,7 @@ function getAnimals() {
 
 function displayAnimals(animals) {
     let animalsContainer = document.getElementById('animalsContainer');
+    animalsContainer.innerHTML = "";
     let row;
 
     animals.forEach((animal, index) => {
@@ -130,7 +136,7 @@ function displayAnimals(animals) {
                                 </div>`;
 
         let animalButtons = document.createElement('div');
-        animalButtons.classList.add('animalButtons');
+        // animalButtons.classList.add('animalButtons');
 
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('button', 'bg-danger');
@@ -143,14 +149,14 @@ function displayAnimals(animals) {
             <div class="modal fade" id="${animal.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header fond-primary primary">
                             <h5 class="modal-title" id="deleteModale">Suppression d'un animal</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary primary">
                             <p>Êtes-vous sûr de vouloir supprimer cet animal ?</p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary primary">
                             <button type="button" class="btn-primary btn deleteButton" data-bs-dismiss="modal" id="${animal.id}">Confirmer la suppresion</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -172,11 +178,11 @@ function displayAnimals(animals) {
             <div class="modal fade" id="${animal.id}update" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header fond-primary primary">
                             <h5 class="modal-title" id="deleteModale">Modification d'un animal</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary primary">
                             <form class="fond-primary primary login-form d-flex flex-column align-items-center">
                                 <label for="name">Nom de l'animal</label>
                                 <input type="text" id="updatedName${animal.id}" name="name">
@@ -196,7 +202,7 @@ function displayAnimals(animals) {
                                 </select>
                             </form>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary primary">
                             <button type="button" class="btn-primary btn updateButton" data-bs-dismiss="modal" id="${animal.id}">Confirmer les modifications</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -285,12 +291,12 @@ function updateAnimal(id) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        'name': updatedName.value,
-        'species': updatedSpecies.value,
+        'name': sanitize(updatedName.value),
+        'species': sanitize(updatedSpecies.value),
         'age': parseInt(updatedAge.value, 10),
         'size': parseInt(updatedSize.value, 10),
         'weight': parseInt(updatedWeight.value, 10),
-        'image': updatedImagePath[updatedImagePath.length - 1],
+        'image': sanitize(updatedImagePath[updatedImagePath.length - 1]),
         'habitat': parseInt(habitatSelect.value, 10)
     });
 

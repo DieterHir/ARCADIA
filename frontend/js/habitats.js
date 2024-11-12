@@ -11,6 +11,20 @@ let habitatsContainer = document.getElementById("habitatsContainer");
 
 let habitats = [];
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function addHabitat() {
     let habitatImagePath = habitatImage.value.split("\\");
 
@@ -19,9 +33,9 @@ function addHabitat() {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        "name": habitatName.value,
-        "description": habitatDescription.value,
-        "image": habitatImagePath[habitatImagePath.length - 1],
+        "name": sanitize(habitatName.value),
+        "description": sanitize(habitatDescription.value),
+        "image": sanitize(habitatImagePath[habitatImagePath.length - 1]),
     });
 
     let requestOptions = {
@@ -110,14 +124,14 @@ function displayHabitats(habitats) {
             <div class="modal fade" id="${habitat.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header fond-primary primary">
                             <h5 class="modal-title" id="deleteModale">Suppression d'un habitat</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary primary">
                             <p>Êtes-vous sûr de vouloir supprimer cet habitat ?</p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary primary">
                             <button type="button" class="btn-primary btn deleteButton" data-bs-dismiss="modal" id="${habitat.id}">Confirmer la suppresion</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -138,11 +152,11 @@ function displayHabitats(habitats) {
             <div class="modal fade" id="${habitat.id}updateHabitat" tabindex="-1" aria-labelledby="updateModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModale">Modification d'un habitat</h5>
+                        <div class="modal-header fond-primary">
+                            <h5 class="modal-title primary" id="deleteModale">Modification d'un habitat</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary">
                             <form class="fond-primary primary login-form d-flex flex-column align-items-center">
                                 <label for="name">Nom de l'habitat</label>
                                 <input type="text" id="updatedName${habitat.id}" name="name">
@@ -152,7 +166,7 @@ function displayHabitats(habitats) {
                                 <input type="file" id="updatedImage${habitat.id}" name="image">
                             </form>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary">
                             <button type="button" class="btn-primary btn updateButton" data-bs-dismiss="modal" id="${habitat.id}">Confirmer les modifications</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -230,9 +244,9 @@ function updateHabitat(id) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        'name': updatedName.value,
-        'description': updatedDescription.value,
-        'image': updatedImagePath[updatedImagePath.length -1],
+        'name': sanitize(updatedName.value),
+        'description': sanitize(updatedDescription.value),
+        'image': sanitize(updatedImagePath[updatedImagePath.length -1]),
     });
 
     let requestOptions = {

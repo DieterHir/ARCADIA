@@ -5,22 +5,45 @@ let email = document.getElementById("login");
 let password = document.getElementById("password");
 
 btn_login.addEventListener("click", login);
+email.addEventListener("input", function(event) {
+    let mail = event.target.value;
+    let isValid = validateEmail(mail);
 
-function login() {
-
-    if (!validateEmail(email.value)) {
+    if (!isValid) {
         email.classList.add("is-invalid");
+        btn_login.classList.add("disabled");
+        btn_login.disabled = true;
         return;
     } else {
         email.classList.remove("is-invalid");
+        btn_login.classList.remove("disabled");
+        btn_login.disabled = false;
+        return;
     }
+});
+
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
+function login() {
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     
     let raw = JSON.stringify({
-        "username" : email.value,
-        "password" : password.value,
+        "username" : sanitize(email.value),
+        "password" : sanitize(password.value),
     });
 
     let requestOptions = {

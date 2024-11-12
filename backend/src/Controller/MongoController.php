@@ -41,4 +41,15 @@ class MongoController extends AbstractController
 
         return new JsonResponse(['message' => 'Compteur mis à jour']);
     }
+
+    #[Route('/getAll', name: 'getAll', methods: 'GET')]
+    public function getAll(): JsonResponse
+    {
+        $mongoClient = new Client("mongodb://localhost:27017");
+        $mongoCollection = $mongoClient->arcadia->animalsVisits;
+
+        $animalsData = $mongoCollection->find([], ['_id' => 0])->toArray();
+
+        return new JsonResponse($animalsData);
+    }
 }
