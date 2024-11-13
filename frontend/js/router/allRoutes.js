@@ -14,6 +14,7 @@ export const allRoutes = [
     new Route("/vet-adm", "Administration des avis vétérinaire", "/pages/vet/vet-adm.html", "/js/vet/vet-adm.js", "ROLE_VET"),
     new Route("/habitats/animalsList/:id", "Liste des habitants de l'habitat :id", "/pages/animalsList.html", "/js/animalsList.js", ""),
     new Route("/vetReviews-adm", "Récapitulatif des avis vétérinaires", "/pages/admin/vetReviews-adm.html", "/js/admin/vetReviews-adm.js", "ROLE_ADMIN"),
+    new Route("/dashboard", "Dashboard", "/pages/admin/dashboard.html", "/js/admin/dashboard.js", "ROLE_ADMIN")
 ];
 
 export const websiteName = "Arcadia";

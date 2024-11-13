@@ -33,7 +33,6 @@ function displayInformations(id) {
             return response.json();
         })
         .then(animal => {
-            console.log(animal);
             image.innerHTML = `<img src="/images/${animal.image}" class="rounded" alt="photo de ${animal.name}"/>`;
             name.innerHTML = `<span class="secondary">Nom :</span> ${animal.name}`;
             species.innerHTML = `<span class="secondary">Race :</span> ${animal.species}`;
@@ -60,6 +59,27 @@ function displayInformations(id) {
             if (animal.lastVetVisit) {
                 lastVetVisit.innerHTML = `<span class="secondary">Date de dernier passage de l'équipe vétérinaire :</span> ${animal.lastVetVisit}`;
             }
+        })
+        .then(() => {
+            let newHeaders = new Headers();
+            newHeaders.append("Content-Type", "application/json");
+
+            let newRequestOptions = {
+                method: 'PUT',
+                headers: newHeaders
+            };
+
+            return fetch("http://localhost:8000/mongoDB/" + `${id}`, newRequestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur dans la mise à jour MongoDB');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Mise à jour MongoDB: ", data.message);
+                })
+                .catch(error => console.error("Erreur PUT MongoDB: ", error));
         })
         .catch(error => console.error("Erreur: ", error));
 }

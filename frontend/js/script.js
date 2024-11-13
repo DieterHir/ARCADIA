@@ -15,6 +15,20 @@ let closingTime = document.getElementById("closingTime");
 let schedules = document.getElementById("schedules");
 let modalList = document.getElementById("modalList");
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -147,9 +161,9 @@ function updateSchedules(id) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        'days': updatedDays.value,
-        'openingTime': updatedOpeningTime.value,
-        'closingTime': updatedClosingTime.value,
+        'days': sanitize(updatedDays.value),
+        'openingTime': sanitize(updatedOpeningTime.value),
+        'closingTime': sanitize(updatedClosingTime.value),
     });
 
     let requestOptions = {
@@ -191,11 +205,6 @@ function showAndHideElementsForRoles() {
     if (getRole()?.length) {
         roles = getRole().split(",");
     }
-
-    // if (userConnected) {
-    //     loginBarButton.innerHTML = `<a href="/login" class="nav-link">Déconnexion</a>`;
-    //     loginBarButton.addEventListener("click", signout);
-    // }
 
     let allElementsToEdit = document.querySelectorAll('[data-show]');
 

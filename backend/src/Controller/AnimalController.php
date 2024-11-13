@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Document\AnimalVisit;
 use App\Entity\Animal;
 use App\Entity\Habitat;
 use App\Entity\VetReviews;
@@ -10,7 +9,6 @@ use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use App\Repository\VetReviewsRepository;
 use DateTimeImmutable;
-// use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,26 +51,6 @@ class AnimalController extends AbstractController
             Response::HTTP_CREATED
         );
     }
-
-    // #[Route('/addAnimalToMongo', name: 'addAnimalToMongo', methods: 'POST')]
-    // public function addAnimalToMongo(Request $request, DocumentManager $dm): JsonResponse
-    // {
-    //     $data = json_decode($request->getContent(), true);
-    //     $name = $data['name'] ?? null;
-
-    //     if (!$name) {
-    //         return new JsonResponse(['error' => 'Le nom est nécessaire'], Response::HTTP_BAD_REQUEST);
-    //     }
-
-    //     $mongoAnimal = [
-    //         'name' => $name,
-    //         'visitCount' => 0
-    //     ];
-
-    //     $dm->getDocumentCollection(AnimalVisit::class)->insertOne($mongoAnimal);
-
-    //     return new JsonResponse($mongoAnimal);
-    // }
 
     #[Route('/getAnimals', name: 'getAnimals', methods: 'GET')]
     public function getAnimals(AnimalRepository $repository, VetReviewsRepository $vetReviewsRepository): JsonResponse
@@ -131,7 +109,7 @@ class AnimalController extends AbstractController
         $this->manager->remove($animal);
         $this->manager->flush();
 
-        return $this->json(['message' => "Animal supprimée"], Response::HTTP_NO_CONTENT);
+        return $this->json(['message' => "Animal supprimé"], Response::HTTP_NO_CONTENT);
     }
 
     #[Route('/{id}', name: 'update', methods: 'PUT')]
@@ -250,5 +228,4 @@ class AnimalController extends AbstractController
 
         return $this->json(['message' => 'Avis vétérinaire mis à jour avec succès']);
     }
-
 }

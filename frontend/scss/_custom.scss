@@ -20,6 +20,10 @@ html, body {
     margin: 0;
 }
 
+.disabled {
+    background-color: grey !important;
+}
+
 #container {
     display: flex;
     flex-direction: column;
@@ -31,6 +35,10 @@ main {
 }
 
 .navbar-toggler {
+    border: none;
+}
+
+.modal-header, .modal-body, .modal-footer {
     border: none;
 }
 

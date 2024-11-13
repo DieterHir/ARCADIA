@@ -41,4 +41,5 @@ INSERT INTO services (name, description, image)
 VALUES
 ('Restauration', 'Venez découvrir nos cartes variées pour toute la famille !', 'restaurant.jpg'),
 ('Visite en petit train', "Vous avez mal aux pieds à force d\'arpenter nos habitats ? Pourquoi ne pas vous laisser emporter par notre visite gratuite en petit train ?", 'train.jpg'),
-('Visite guidée', "Notre parc vous propose les services de plusieurs guides pour vous donner un accompagnement personnalisé et répondre à toutes vos questions lors de votre visite ! (tarif selon groupe et saison)", 'guide.jpg');
+('Visite guidée', "Notre parc vous propose les services de plusieurs guides pour vous donner un accompagnement personnalisé et répondre à toutes vos questions lors de votre visite !
+ (tarif selon groupe et saison)", 'guide.jpg');

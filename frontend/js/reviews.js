@@ -6,14 +6,28 @@ let reviewMessage = document.getElementById("message");
 
 newReviewButton.addEventListener("click", newReview);
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function newReview() {
     
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-        "visitorName": visitorName.value,
-        "message": reviewMessage.value,
+        "visitorName": sanitize(visitorName.value),
+        "message": sanitize(reviewMessage.value),
     });
 
     let requestOptions = {

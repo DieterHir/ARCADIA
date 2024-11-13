@@ -13,6 +13,20 @@ let serviceModalList = document.getElementById("serviceModalList");
 
 let services = [];
 
+function sanitize(string) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    };
+
+    let reg = /[&<>"'/`]/ig;
+    return string.replace(reg, (match) =>(map[match]));
+}
+
 function addService() {
     let serviceImagePath = serviceImage.value.split("\\");
 
@@ -21,9 +35,9 @@ function addService() {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        "name": serviceName.value,
-        "description": serviceDescription.value,
-        "image": serviceImagePath[serviceImagePath.length - 1],
+        "name": sanitize(serviceName.value),
+        "description": sanitize(serviceDescription.value),
+        "image": sanitize(serviceImagePath[serviceImagePath.length - 1]),
     });
 
     let requestOptions = {
@@ -113,14 +127,14 @@ function displayServices(services) {
             <div class="modal fade" id="${service.id}modal" tabindex="-1" aria-labelledby="deleteModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header fond-primary primary">
                             <h5 class="modal-title" id="deleteModale">Suppression d'un service</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary primary">
                             <p>Êtes-vous sûr de vouloir supprimer ce service ?</p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary primary">
                             <button type="button" class="btn-primary btn deleteButton" data-bs-dismiss="modal" id="${service.id}">Confirmer la suppresion</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -141,11 +155,11 @@ function displayServices(services) {
             <div class="modal fade" id="${service.id}ServiceUpdate" tabindex="-1" aria-labelledby="updateServiceModale" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header fond-primary primary">
                             <h5 class="modal-title" id="updateModale">Modification d'un service</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body fond-primary primary">
                             <form class="fond-primary primary login-form d-flex flex-column align-items-center">
                                 <label for="name">Nom du service</label>
                                 <input type="text" id="updatedName${service.id}" name="name">
@@ -155,7 +169,7 @@ function displayServices(services) {
                                 <input type="file" id="updatedImage${service.id}" name="image">
                             </form>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer fond-primary primary">
                             <button type="button" class="btn-primary btn updateButton" data-bs-dismiss="modal" id="${service.id}">Confirmer les modifications</button>
                             <button type="button" class="btn-primary btn" data-bs-dismiss="modal">Annuler</button>
                         </div>
@@ -242,9 +256,9 @@ function updateService(id) {
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
     let raw = JSON.stringify({
-        'name': updatedName.value,
-        'description': updatedDescription.value,
-        'image': updatedImagePath[updatedImagePath.length -1],
+        'name': sanitize(updatedName.value),
+        'description': sanitize(updatedDescription.value),
+        'image': sanitize(updatedImagePath[updatedImagePath.length -1]),
     });
 
     let requestOptions = {
