@@ -14,8 +14,6 @@ class MongoController extends AbstractController
     #[Route('/{id}', name: 'increaseVisits', methods: 'PUT')]
     public function increaseVisits(int $id, AnimalRepository $repository): JsonResponse
     {
-        error_log("Requête reçue pour l'animal avec l'ID: " . $id);
-
         $mongoClient = new Client("mongodb://localhost:27017");
         $mongoCollection = $mongoClient->arcadia->animalsVisits;
 

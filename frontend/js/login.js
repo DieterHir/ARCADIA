@@ -5,6 +5,7 @@ let email = document.getElementById("login");
 let password = document.getElementById("password");
 
 btn_login.addEventListener("click", login);
+
 email.addEventListener("input", function(event) {
     let mail = event.target.value;
     let isValid = validateEmail(mail);
@@ -13,12 +14,10 @@ email.addEventListener("input", function(event) {
         email.classList.add("is-invalid");
         btn_login.classList.add("disabled");
         btn_login.disabled = true;
-        return;
     } else {
         email.classList.remove("is-invalid");
         btn_login.classList.remove("disabled");
         btn_login.disabled = false;
-        return;
     }
 });
 
@@ -49,7 +48,6 @@ function login() {
     let requestOptions = {
         method: "POST",
         headers: myHeaders,
-        // mode: 'no-cors',
         body: raw,
         redirect: 'follow'
     };
@@ -64,7 +62,6 @@ function login() {
             }
         })
         .then(result => {
-            console.log(result);
             let token = result.apiToken;
             setToken(token);
 

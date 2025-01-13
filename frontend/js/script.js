@@ -23,6 +23,7 @@ function sanitize(string) {
         '"': '&quot;',
         "'": '&#x27;',
         "/": '&#x2F;',
+        "`": '&#x60;'
     };
 
     let reg = /[&<>"'/`]/ig;

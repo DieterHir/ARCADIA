@@ -40,7 +40,9 @@ function initializeChart() {
             text: "Animaux avec le plus de visites"
         },
         axisY: {
-            title: "Nombre de visites"
+            title: "Nombre de visites",
+            minimum: 0,
+            interval: 1
         },
         data: [{
             type: "column",

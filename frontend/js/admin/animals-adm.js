@@ -136,7 +136,6 @@ function displayAnimals(animals) {
                                 </div>`;
 
         let animalButtons = document.createElement('div');
-        // animalButtons.classList.add('animalButtons');
 
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('button', 'bg-danger');

@@ -3,21 +3,21 @@ import { allRoutes, websiteName } from "./allRoutes.js";
 
 const route404 = new Route("404", "Page introuvable", "/pages/404.html");
 
-const getRouteByUrl = (url) => {
-  let currentRoute = null;
+// const getRouteByUrl = (url) => {
+//   let currentRoute = null;
 
-  allRoutes.forEach((element) => {
-    if (element.url == url) {
-      currentRoute = element;
-    }
-  });
+//   allRoutes.forEach((element) => {
+//     if (element.url == url) {
+//       currentRoute = element;
+//     }
+//   });
 
-  if (currentRoute != null) {
-    return currentRoute;
-  } else {
-    return route404;
-  }
-};
+//   if (currentRoute != null) {
+//     return currentRoute;
+//   } else {
+//     return route404;
+//   }
+// };
 
 const LoadContentPage = async () => {
   const path = window.location.pathname;
@@ -62,7 +62,6 @@ const routeEvent = (event) => {
 function findRoute(path) {
   let route = allRoutes.find((r) => {
     let routeRegex = new RegExp("^" + r.url.replace(":id", "\\d+") + "$");
-    //console.log(routeRegex, r, path, routeRegex.test(path));
     return routeRegex.test(path);
   });
 
@@ -72,20 +71,6 @@ function findRoute(path) {
     return route404;
   }
 }
-
-// window.addEventListener("hashchange", function() {
-//     let route = findRoute(path);
-
-//     if (route) {
-//         loadPage(route.page);
-
-//         let idMatch = path.match(/animal\/(\d+)/);
-//         if (idMatch) {
-//             let animalId = idMatch[1];
-//             loadAnimalDetails(animalId);
-//         }
-//     }
-// });
 
 window.onpopstate = LoadContentPage;
 window.route = routeEvent;
